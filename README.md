@@ -10,3 +10,7 @@ my personal blog
 #### - [React 实践项目 （三）](https://github.com/DigAg/digag-pc-react/issues/8)
 #### - [React 实践项目 （四）](https://github.com/DigAg/digag-pc-react/issues/9)
 #### - [React 实践项目 （五）](https://github.com/DigAg/digag-pc-react/issues/10)
+
+## Spring Boot 系列
+
+#### - [Spring Boot中使用Swagger2构建API文档](https://github.com/Yuicon/blog/issues/1)
