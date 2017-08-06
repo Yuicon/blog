@@ -1,5 +1,5 @@
-# blog
-my personal blog
+# 博客
+我的个人博客
 
 # 目录
 
