@@ -14,3 +14,4 @@
 ## Spring Boot 系列
 
 #### - [Spring Boot中使用Swagger2构建API文档](https://github.com/Yuicon/blog/issues/1)
+#### - [Spring Boot中使用 Spring Security 构建权限系统](https://github.com/Yuicon/blog/issues/2)
