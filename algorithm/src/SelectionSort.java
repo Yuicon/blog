@@ -17,14 +17,14 @@ public class SelectionSort {
         int tmp;
         for (int i = 0; i < arr.size() - 1; i++) {
             minIndex = i;
-            // 找出未排序的数据中最小的数据
+            // 找出未排序的元素中最小的元素
             for (int j = i + 1; j < arr.size(); j++) {
                 if (arr.get(j) < arr.get(minIndex)) {
-                    // 将 minIndex 指向最小数据的索引
+                    // 将 minIndex 指向最小元素的索引
                     minIndex = j;
                 }
             }
-            // 交换数据
+            // 交换元素
             tmp = arr.get(i);
             arr.set(i, arr.get(minIndex));
             arr.set(minIndex, tmp);
