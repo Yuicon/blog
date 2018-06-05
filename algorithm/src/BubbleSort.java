@@ -27,5 +27,4 @@ public class BubbleSort {
         System.out.println(list);
     }
 
-
 }
