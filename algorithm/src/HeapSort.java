@@ -48,9 +48,12 @@ public class HeapSort {
             swap(left, right);
             fix(right, e);
         }
-        //如果左节点存在且大于父节点,进行交换并向下调整大顶堆
-        if (left <= e && list.get(i) < list.get(left)) {
-            swap(i, left);
+        if (left <= e) {
+            //如果左节点存在且大于父节点进行交换
+            if (list.get(i) < list.get(left)) {
+                swap(i, left);
+            }
+            //向下调整大顶堆
             fix(left, e);
         }
     }
