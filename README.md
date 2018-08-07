@@ -3,6 +3,7 @@
 
 # 目录
 
+#### - [Java基础-泛型详解](https://juejin.im/post/5b61545151882569fd2886bd)
 #### - [一致性Hash](https://juejin.im/post/5b44728951882519f974d017)
 #### - [Java基础-类加载器以及加载机制](https://juejin.im/post/5b4472c55188251b157b9913)
 #### - [Spring理论基础-面向切面编程](https://juejin.im/post/5b38c1a66fb9a00e7a3d6cc9)
