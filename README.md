@@ -1,6 +1,8 @@
 # 博客
 我的个人博客
 
+![](https://user-gold-cdn.xitu.io/2018/8/14/1653778c1eebfea2?w=258&h=258&f=jpeg&s=28476)
+
 # 目录
 
 #### - [Java多线程基础-CyclicBarrier](https://juejin.im/post/5b6fce4be51d45664c239f14)
