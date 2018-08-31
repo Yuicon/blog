@@ -31,3 +31,6 @@ mvnw.cmd
 /spring.log
 /src/main/resources/application-dev.properties
 /client/node_modules/
+/server/.idea/
+/server/server.iml
+/server/.mvn/
