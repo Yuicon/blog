@@ -5,6 +5,7 @@
 
 # 目录
 
+#### - [Java基础-内部类详解](https://juejin.im/post/5b7a54bff265da435a4850c1)
 #### - [Java基础-接口、lambda表达式](https://juejin.im/post/5b7a5411e51d4538e63311e3)
 #### - [Java多线程基础-CyclicBarrier](https://juejin.im/post/5b6fce4be51d45664c239f14)
 #### - [Java基础-泛型详解](https://juejin.im/post/5b61545151882569fd2886bd)
