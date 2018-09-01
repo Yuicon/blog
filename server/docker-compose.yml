@@ -1,0 +1,51 @@
+version: '2'
+services:
+#  web:
+#    image: bankmonitor/spring-boot:latest
+#    ports:
+#      - "8080:8080"
+#    environment:
+#      - "SPRING_PROFILES_ACTIVE=product"
+#    volumes:
+#      - "./app.jar:/app/app.jar"
+#    depends_on:
+#      - mysql
+#      - redis
+  mysql:
+    image: mysql:5.7
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+    volumes:
+      - "mysql_data:/var/lib/mysql"
+      - "./log:/mnt"
+  redis:
+    image: redis:latest
+    ports:
+      - "6379:6379"
+    volumes:
+      - "redis_data:/data"
+#  zookeeper:
+#    image: wurstmeister/zookeeper
+#    restart: unless-stopped
+#    ports:
+#      - "2181:2181"
+#
+#  kafka:
+#    image: wurstmeister/kafka
+#    ports:
+#      - "9092:9092"
+#    environment:
+#      KAFKA_ADVERTISED_HOST_NAME: localhost
+#      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+#      KAFKA_BROKER_ID: 1
+#      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+#      KAFKA_CREATE_TOPICS: "stream-in:1:1,stream-out:1:1"
+#    depends_on:
+#      - zookeeper
+#    container_name: kafka
+
+volumes:
+  mysql_data:
+  redis_data:
