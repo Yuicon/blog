@@ -16,7 +16,7 @@ class App extends Component {
                         <h1 className="App-title"><a href="/">Welcome to Yuicon Blog</a></h1>
                     </header>
                     <Route exact path="/" component={Home}/>
-                    <Route exact path="/articles/new" component={New}/>
+                    <Route exact path="/article/new" component={New}/>
                     <Route exact path="/articles/:id" component={Article}/>
                 </div>
             </Router>
