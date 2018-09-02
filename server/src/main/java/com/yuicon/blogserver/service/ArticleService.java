@@ -55,7 +55,7 @@ public class ArticleService {
     public Optional<Article> findById(int id) {
         Article article = articleMapper.findById(id);
         if (article == null) {
-            return Optional.empty();
+            return Optional.of(new Article());
         }
         return Optional.of(article);
     }

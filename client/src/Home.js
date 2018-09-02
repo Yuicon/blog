@@ -25,7 +25,7 @@ class Home extends Component {
 
     render() {
 
-        const entryList = this.state.articles.map(article => <Entry article={article} key={article.id}/>);
+        const entryList = this.state.articles.map(article => <Entry history={this.props.history} article={article} key={article.id}/>);
 
         return (
             <div className="entry-list">

@@ -6,11 +6,15 @@ import React, {Component} from "react";
 
 class Entry extends Component {
 
+    handleOnClick = () => {
+        this.props.history.push(`/articles/${this.props.article.id}`);
+    };
+
     render() {
 
         return (
             <div className="entry">
-                <p>{this.props.article.title}</p>
+                <p onClick={this.handleOnClick}>{this.props.article.title}</p>
             </div>
         );
     }

@@ -8,6 +8,10 @@ function getArticles(page = 0, size = 20) {
     return fetch(baseUrl + `/articles?page=${page}&size=${size}`).then(response => response.json()).then(json => json);
 }
 
+function getArticleById(id) {
+    return fetch(baseUrl + "/articles/" + id).then(response => response.json()).then(json => json);
+}
+
 function getArticle(gitUserName, repositoryName, issueId) {
     return fetch(`https://api.github.com/repos/${gitUserName}/${repositoryName}/issues/${issueId}`).then(response => response.json()).then(json => json);
 }
@@ -40,3 +44,4 @@ api.getArticles = getArticles;
 api.addArticle = addArticle;
 api.putArticle = putArticle;
 api.getArticle = getArticle;
+api.getArticleById = getArticleById;
