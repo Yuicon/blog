@@ -22,3 +22,44 @@
 .App-intro {
     font-size: large;
 }
+
+.new {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.new input {
+    padding: 10px;
+    margin: 20px;
+}
+
+.new label {
+    font-size: 14px;
+}
+
+.new button {
+    border: none;
+    background-color: #2f54eb;
+    font-size: 16px;
+    padding: 6px;
+    color: white;
+}
+
+.entry-list {
+    margin: 30px;
+}
+
+.entry {
+    background: transparent;
+    border: 1px solid #e8e8e8;
+    padding: 0 24px;
+    border-radius: 2px 2px 0 0;
+    zoom: 1;
+    margin-bottom: -1px;
+    min-height: 48px;
+    min-width: 500px;
+    width: 90%;
+    font-size: 24px;
+    color: cornflowerblue;
+}

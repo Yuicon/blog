@@ -1,6 +1,5 @@
 package com.yuicon.blogserver.controller;
 
-import com.yuicon.blogserver.mapper.ArticleMapper;
 import com.yuicon.blogserver.model.Article;
 import com.yuicon.blogserver.service.ArticleService;
 import org.springframework.data.domain.PageImpl;
@@ -16,24 +15,21 @@ import java.util.Optional;
 @RequestMapping("/articles")
 public class ArticleController {
 
-    private final ArticleMapper articleMapper;
-
     private final ArticleService articleService;
 
-    public ArticleController(ArticleMapper articleMapper, ArticleService articleService) {
-        this.articleMapper = articleMapper;
+    public ArticleController(ArticleService articleService) {
         this.articleService = articleService;
     }
 
     @PostMapping
-    public Mono<Integer> insert(@RequestBody Article article) {
-        return Mono.just(articleMapper.insert(article));
+    public Mono<Article> insert(@RequestBody Article article) {
+        return articleService.save(article);
     }
-    
-//    @PutMapping
-//    public Mono<Integer> update(@RequestBody Article article) {
-//        return Mono.just(articleMapper.update(article));
-//    }
+
+    @PutMapping
+    public Mono<Article> update(@RequestBody Article article) {
+        return articleService.put(article);
+    }
 
     @GetMapping()
     public Mono<PageImpl> findAll(@RequestParam(value = "page", defaultValue = "0", required = false) int page,

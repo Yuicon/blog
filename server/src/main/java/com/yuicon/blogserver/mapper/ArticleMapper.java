@@ -2,7 +2,6 @@ package com.yuicon.blogserver.mapper;
 
 import com.yuicon.blogserver.model.Article;
 import org.apache.ibatis.annotations.*;
-import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -32,8 +31,8 @@ public interface ArticleMapper {
      * @param article 文章实体
      * @return 修改数量
      */
-    @Update("UPDATE tb_article" +
-            "SET title=#{article.title}, createdAt=#{article.createdAt}, updatedAt=#{article.updatedAt}, closedAt=#{article.closedAt}, body=#{article.body}" +
+    @Update("UPDATE tb_article " +
+            "SET title=#{article.title}, createdAt=#{article.createdAt}, updatedAt=#{article.updatedAt}, closedAt=#{article.closedAt}, body=#{article.body} " +
             "WHERE id = #{article.id}")
     int update(@Param("article") Article article);
 
@@ -45,6 +44,15 @@ public interface ArticleMapper {
      */
     @Select("SELECT * FROM tb_article WHERE id = #{id}")
     Article findById(@Param("id") int id);
+
+    /**
+     * 查询唯一的文章
+     *
+     * @param article 文章
+     * @return 文章
+     */
+    @Select("SELECT * FROM tb_article WHERE gitUserName = #{article.gitUserName} AND repositoryName = #{article.repositoryName} AND issueId = #{article.issueId}")
+    Article findByUniqe(@Param("article") Article article);
 
     /**
      * 分页查询文章

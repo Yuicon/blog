@@ -6,8 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,10 +21,30 @@ import java.util.Optional;
 public class ArticleService {
 
     private final ArticleMapper articleMapper;
+    private final WebClient gitWebClient;
 
     @Autowired
-    public ArticleService(ArticleMapper articleMapper) {
+    public ArticleService(ArticleMapper articleMapper, WebClient githubWebClient) {
         this.articleMapper = articleMapper;
+        this.gitWebClient = githubWebClient;
+    }
+
+    public Mono<Article> put(Article article) {
+        try {
+            articleMapper.update(article);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return Mono.just(articleMapper.findById(article.getId()));
+    }
+
+    public Mono<Article> save(Article article) {
+        try {
+            articleMapper.insert(article);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return Mono.just(articleMapper.findByUniqe(article));
     }
 
     public Mono<PageImpl> findByPage(int page, int size) {
@@ -35,6 +58,10 @@ public class ArticleService {
             return Optional.empty();
         }
         return Optional.of(article);
+    }
+
+    public static void main(String[] args) {
+        System.out.println(LocalDateTime.parse("2017-08-13T07:09:00Z", DateTimeFormatter.ISO_INSTANT));
     }
 
 }

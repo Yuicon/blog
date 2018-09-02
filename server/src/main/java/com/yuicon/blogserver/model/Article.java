@@ -6,10 +6,8 @@ import com.vladsch.flexmark.html.HtmlRenderer;
 import com.vladsch.flexmark.parser.Parser;
 import com.vladsch.flexmark.util.options.MutableDataSet;
 
-import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.Objects;
-import java.util.Optional;
 
 /**
  * @author Yuicon
@@ -26,13 +24,17 @@ public class Article {
 
     private String title;
 
-    private LocalDateTime createdAt;
+    private String createdAt;
 
-    private LocalDateTime updatedAt;
+    private String updatedAt;
 
-    private LocalDateTime closedAt;
+    private String closedAt;
 
     private String body;
+
+    public String githubUrl() {
+        return "/repos/" + getGitUserName() + "/" + getRepositoryName() + "/" + "issues" + "/" + getIssueId();
+    }
 
     /**
      * markdown转html
@@ -90,27 +92,27 @@ public class Article {
         this.title = title;
     }
 
-    public LocalDateTime getCreatedAt() {
+    public String getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(LocalDateTime createdAt) {
+    public void setCreatedAt(String createdAt) {
         this.createdAt = createdAt;
     }
 
-    public LocalDateTime getUpdatedAt() {
+    public String getUpdatedAt() {
         return updatedAt;
     }
 
-    public void setUpdatedAt(LocalDateTime updatedAt) {
+    public void setUpdatedAt(String updatedAt) {
         this.updatedAt = updatedAt;
     }
 
-    public LocalDateTime getClosedAt() {
+    public String getClosedAt() {
         return closedAt;
     }
 
-    public void setClosedAt(LocalDateTime closedAt) {
+    public void setClosedAt(String closedAt) {
         this.closedAt = closedAt;
     }
 

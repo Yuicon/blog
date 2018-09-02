@@ -1,0 +1,8 @@
+Exception: STATUS_ACCESS_VIOLATION at eip=61138D8C
+eax=FFE897C9 ebx=0000009A ecx=FFEA0001 edx=FFEA0000 esi=FFE84BF6 edi=FFE897C9
+ebp=0060BF88 esp=0060BE10 program=C:\Users\Yuicon\.babun\cygwin\bin\zsh.exe, pid 9208, thread main
+cs=0023 ds=002B es=002B fs=0053 gs=002B ss=002B
+Stack trace:
+Frame     Function  Args
+0060BF88  61138D8C (0060BFF8, 0060C030, 00000000, 2063F4A8)
+End of stack trace
