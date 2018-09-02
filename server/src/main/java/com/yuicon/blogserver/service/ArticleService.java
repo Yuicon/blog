@@ -12,7 +12,6 @@ import reactor.core.publisher.Mono;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.Optional;
 
 /**
  * @author Yuicon
@@ -52,12 +51,12 @@ public class ArticleService {
         return Mono.just(new PageImpl<>(articles, PageRequest.of(page, size), articleMapper.count()));
     }
 
-    public Optional<Article> findById(int id) {
+    public Article findById(int id) {
         Article article = articleMapper.findById(id);
         if (article == null) {
-            return Optional.of(new Article());
+            return new Article();
         }
-        return Optional.of(article);
+        return article.toHtml();
     }
 
     public static void main(String[] args) {

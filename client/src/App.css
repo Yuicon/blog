@@ -81,10 +81,6 @@
     font-size: 14px;
 }
 
-.markdown-body img {
-    text-align: center;
-}
-
 @media (max-width: 767px) {
     .markdown-body {
         padding: 15px;

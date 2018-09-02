@@ -6,8 +6,6 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 
-import java.util.Optional;
-
 /**
  * @author Yuicon
  */
@@ -39,10 +37,7 @@ public class ArticleController {
 
     @GetMapping("/{id}")
     public Mono<Article> findById(@PathVariable("id") int id) {
-        return Mono.just(articleService.findById(id))
-                .filter(Optional::isPresent)
-                .map(Optional::get)
-                .map(Article::toHtml);
+        return Mono.just(articleService.findById(id));
     }
 
 
