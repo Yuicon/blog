@@ -1,3 +1,7 @@
+body {
+    height:100%
+}
+
 .App {
     text-align: center;
 }
@@ -85,4 +89,24 @@
     .markdown-body {
         padding: 15px;
     }
+}
+
+.footer {
+    width: 100%;
+    min-width: 1200px;
+    height: 160px;
+    background-color: #000;
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+.footer .license {
+    color: rgba(255, 255, 255, 0.7);
+    width: 100%;
+    text-align: center;
+    position: absolute;
+    bottom: 45px;
+    font-size: 14px;
 }
