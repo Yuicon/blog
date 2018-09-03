@@ -2,7 +2,7 @@
  * @author Yuicon
  */
 
-const baseUrl = "http://blog.penglei.wang";
+const baseUrl = "https://blog.penglei.wang";
 
 function getArticles(page = 0, size = 20) {
     return fetch(baseUrl + `/articles?page=${page}&size=${size}`).then(response => response.json()).then(json => json);
