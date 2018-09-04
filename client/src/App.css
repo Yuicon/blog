@@ -65,10 +65,23 @@
     width: 90%;
     font-size: 24px;
     color: cornflowerblue;
+    display: flex;
+    flex-direction: column;
 }
 
-.entry p {
+.entry .article-title {
     cursor: pointer;
+}
+
+.entry .details {
+    font-size: 12px;
+    color: darkgray;
+    text-align: center;
+}
+
+.entry .details a {
+    text-decoration: none;
+    color: #058deb;
 }
 
 .markdown-body {
