@@ -123,3 +123,14 @@ body {
     bottom: 45px;
     font-size: 14px;
 }
+
+.comment-full {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.comment-content {
+    max-width: 980px;
+    flex: 1;
+}
