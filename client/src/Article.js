@@ -1,7 +1,11 @@
 import React, {Component} from "react";
 import {api} from "./api";
-import 'gitment/style/default.css'
-import Gitment from 'gitment'
+import 'gitment/style/default.css';
+import 'highlight.js/styles/github-gist.css';
+import Gitment from 'gitment';
+import hljs from 'highlight.js';
+
+
 
 /**
  * @author Yuicon
@@ -14,7 +18,7 @@ class Article extends Component {
         this.state = {
             article: {},
             error: ""
-        }
+        };
     }
 
     backTop = () => {
@@ -34,6 +38,7 @@ class Article extends Component {
                 },
             });
             gitment.render('container');
+            hljs.initHighlighting();
         });
         console.log(article);
     }
