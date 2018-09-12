@@ -68,13 +68,14 @@ body {
     min-width: 500px;
     width: 90%;
     font-size: 24px;
-    color: cornflowerblue;
     display: flex;
     flex-direction: column;
 }
 
 .entry .article-title {
     cursor: pointer;
+    text-decoration: none;
+    color: cornflowerblue;
 }
 
 .entry .details {
