@@ -17,13 +17,17 @@ class Article extends Component {
         }
     }
 
+    backTop = () => {
+        window.scrollTo(0,0);
+    };
+
     async componentDidMount() {
         const article = await api.getArticleById(this.props.match.params.id);
         this.setState({article, error: "<h1>没有文章哦！</h1>"}, () => {
             const gitment = new Gitment({
-                id: article.id,
-                owner: article.gitUserName,
-                repo: article.repositoryName,
+                id: `${article.id}`,
+                owner: "Yuicon",
+                repo: "comment",
                 oauth: {
                     client_id: '1f4bdb550130e267946f',
                     client_secret: '1b48fcde26285d26e4b71193bff6f1d809031a03',
