@@ -134,3 +134,40 @@ body {
     max-width: 980px;
     flex: 1;
 }
+
+.suspension-panel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    position: fixed;
+    right: 12rem;
+    bottom: 2rem;
+    z-index: 1000;
+}
+
+.suspension-panel .btn {
+    margin: 1rem 0 0;
+    padding: 0;
+    width: 3.33rem;
+    height: 3.33rem;
+    line-height: 1;
+    color: #909090;
+    background-color: #fff;
+    border: 1px solid #f1f1f1;
+    border-radius: 50%;
+    box-shadow: 0 0 5px rgba(0,0,0,.05);
+    cursor: pointer;
+}
+
+.suspension-panel .to-top-btn {
+    font-size: 16px;
+}
+
+i, cite, em, var, address, dfn {
+    font-style: italic;
+}
+
+.ion-android-arrow-dropup:before {
+    content: "Top";
+}

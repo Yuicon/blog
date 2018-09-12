@@ -45,6 +45,11 @@ class Article extends Component {
                 <h1>{this.state.article.title}</h1>
                 <article className="markdown-body" dangerouslySetInnerHTML={{__html: this.state.article.body || this.state.error}}>
                 </article>
+                <div className="suspension-panel">
+                    <button title="回到顶部" className="btn to-top-btn" onClick={this.backTop}>
+                        <i className="ion-android-arrow-dropup"/>
+                    </button>
+                </div>
                 <div className="comment-full">
                     <div id="container" className="comment-content"/>
                 </div>
