@@ -58,6 +58,15 @@ body {
     margin: 75px;
 }
 
+@media (max-width: 767px) {
+    .entry-list {
+        margin: 0;
+    }
+    .entry {
+        padding: 0;
+    }
+}
+
 .entry {
     background: transparent;
     border: 1px solid #e8e8e8;
@@ -66,7 +75,6 @@ body {
     zoom: 1;
     margin-bottom: -1px;
     min-width: 500px;
-    width: 90%;
     font-size: 24px;
     display: flex;
     flex-direction: column;
@@ -125,16 +133,9 @@ body {
     font-size: 14px;
 }
 
-.comment-full {
+.comment-content {
     display: flex;
     justify-content: center;
-    align-items: center;
-    text-align: left;
-}
-
-.comment-content {
-    max-width: 980px;
-    flex: 1;
 }
 
 .suspension-panel {

@@ -1,10 +1,9 @@
 import React, {Component} from "react";
 import {api} from "./api";
-import 'gitment/style/default.css';
 import 'highlight.js/styles/github-gist.css';
-import Gitment from 'gitment';
 import hljs from 'highlight.js';
-
+import 'gitalk/dist/gitalk.css'
+import Gitalk from 'gitalk'
 
 
 /**
@@ -28,16 +27,18 @@ class Article extends Component {
     async componentDidMount() {
         const article = await api.getArticleById(this.props.match.params.id);
         this.setState({article, error: "<h1>没有文章哦！</h1>"}, () => {
-            const gitment = new Gitment({
-                id: `${article.id}`,
-                owner: "Yuicon",
-                repo: "comment",
-                oauth: {
-                    client_id: '1f4bdb550130e267946f',
-                    client_secret: '1b48fcde26285d26e4b71193bff6f1d809031a03',
-                },
+            const gitalk = new Gitalk({
+                clientID: '1f4bdb550130e267946f',
+                clientSecret: '1b48fcde26285d26e4b71193bff6f1d809031a03',
+                repo: article.repositoryName,
+                owner: article.gitUserName,
+                admin: [article.gitUserName],
+                number: article.issueId,
+                id: article.id,      // Ensure uniqueness and length less than 50
+                distractionFreeMode: true  // Facebook-like distraction free mode
             });
-            gitment.render('container');
+
+            gitalk.render('gitalk-container');
             hljs.initHighlighting();
         });
         console.log(article);
@@ -55,9 +56,7 @@ class Article extends Component {
                         <i className="ion-android-arrow-dropup"/>
                     </button>
                 </div>
-                <div className="comment-full">
-                    <div id="container" className="comment-content"/>
-                </div>
+                <div id="gitalk-container" className="comment-content" />
             </div>
         );
     }
