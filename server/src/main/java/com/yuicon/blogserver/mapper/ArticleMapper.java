@@ -61,7 +61,7 @@ public interface ArticleMapper {
      * @param size   一页的数量
      * @return 文章列表
      */
-    @Select("SELECT id, title, gitUserName, repositoryName, issueId, createdAt, updatedAt, closedAt FROM tb_article LIMIT #{offset}, #{size}")
+    @Select("SELECT id, title, gitUserName, repositoryName, issueId, createdAt, updatedAt, closedAt FROM tb_article ORDER BY createdAt DESC LIMIT #{offset}, #{size}")
     List<Article> findByPage(@Param("offset") int offset, @Param("size") int size);
 
     /**
