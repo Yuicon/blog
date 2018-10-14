@@ -16,6 +16,8 @@
 #### - [面向对象设计原则-依赖倒置](https://juejin.im/post/5b3997a851882574874da653)
 #### - [Spring Boot中使用Swagger2构建API文档](https://github.com/Yuicon/blog/issues/1)
 #### - [Spring Boot中使用 Spring Security 构建权限系统](https://github.com/Yuicon/blog/issues/2)
+#### - [Java多线程基础-ThreadLocal](https://www.penglei.wang/articles/12)
+#### - [Java基础-模块系统笔记（1）](https://www.penglei.wang/articles/13)
 
 #### - [React 实践项目 （一）](https://github.com/DigAg/digag-pc-react/issues/2)
 #### - [React 实践项目 （二）](https://github.com/DigAg/digag-pc-react/issues/7)
