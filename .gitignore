@@ -34,3 +34,5 @@ mvnw.cmd
 /server/.idea/
 /server/server.iml
 /server/.mvn/
+
+application-product.properties
