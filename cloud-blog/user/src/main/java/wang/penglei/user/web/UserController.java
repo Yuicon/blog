@@ -33,12 +33,12 @@ public class UserController {
         return Mono.justOrEmpty(userMapper.findAll());
     }
 
-    @PostMapping("register")
+    @PostMapping("public/register")
     public Mono<Integer> register(@RequestBody User user) {
         return Mono.justOrEmpty(userMapper.insert(user));
     }
 
-    @PostMapping("login")
+    @PostMapping("public/login")
     public Mono<String> login(@RequestBody User user) {
         User findUser = userMapper.findByUsername(user.getUsername());
         if (findUser != null && findUser.getPassword().equals(user.getPassword())) {
