@@ -1,8 +1,8 @@
 package wang.penglei.user.mapper;
 
+import model.User;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
-import wang.penglei.user.model.User;
 
 import java.util.List;
 
