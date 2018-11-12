@@ -1,11 +1,9 @@
-package wang.penglei.user.utils;
+package utils;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
-import wang.penglei.user.model.User;
+import model.User;
 
 import javax.crypto.spec.SecretKeySpec;
 import java.security.Key;
@@ -16,16 +14,14 @@ import java.util.Date;
 /**
  * @author Yuicon
  */
-@Component
 public class JwtUtils {
 
-    @Value("jwt.key")
-    private String key;
-    private volatile Key signKey;
+    private static String key = "123456";
+    private static volatile Key signKey;
 
-    private Key getKey() {
+    private static Key getKey() {
         if (signKey == null) {
-            synchronized (this) {
+            synchronized (JwtUtils.class) {
                 if (signKey == null) {
                     byte[] encodedKey = Base64.getDecoder().decode(key);
                     signKey = new SecretKeySpec(encodedKey, 0, encodedKey.length, "AES");
@@ -35,7 +31,7 @@ public class JwtUtils {
         return signKey;
     }
 
-    public final String buildToken(User user) {
+    public static String buildToken(User user) {
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.MINUTE, 20);
         return Jwts.builder()
@@ -50,7 +46,7 @@ public class JwtUtils {
                 .compact();
     }
 
-    public final Jws<Claims> parseToken(String token) {
+    public static Jws<Claims> parseToken(String token) {
         return Jwts.parser().setSigningKey(getKey()).parseClaimsJws(token);
     }
 
