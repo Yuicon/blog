@@ -43,4 +43,13 @@ public interface UserMapper {
     @Select("SELECT * FROM ngdc.user WHERE username = #{username};")
     User findByUsername(@Param("username") String username);
 
+    /**
+     * 根据用户id查询用户
+     *
+     * @param id 用户id
+     * @return 用户数据
+     */
+    @Select("SELECT * FROM ngdc.user WHERE id = #{id};")
+    User findById(@Param("id") int id);
+
 }

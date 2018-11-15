@@ -10,6 +10,7 @@ import java.security.Key;
 import java.util.Base64;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.UUID;
 
 /**
  * @author Yuicon
@@ -46,7 +47,20 @@ public class JwtUtils {
                 .compact();
     }
 
-    public static Jws<Claims> parseToken(String token) {
+    public static String buildRefreshToken(User user) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.HOUR, 24);
+        return Jwts.builder()
+                .setIssuer("Yuicon")
+                .setSubject(String.valueOf(user.getId()))
+                .setIssuedAt(new Date())
+                .setAudience("human")
+                .setExpiration(Date.from(calendar.toInstant()))
+                .signWith(getKey())
+                .compact();
+    }
+
+    public static Jws<Claims> parseToken(String token) throws Exception{
         return Jwts.parser().setSigningKey(getKey()).parseClaimsJws(token);
     }
 
