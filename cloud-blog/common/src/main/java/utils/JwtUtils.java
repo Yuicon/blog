@@ -10,7 +10,6 @@ import java.security.Key;
 import java.util.Base64;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.UUID;
 
 /**
  * @author Yuicon
@@ -60,7 +59,7 @@ public class JwtUtils {
                 .compact();
     }
 
-    public static Jws<Claims> parseToken(String token) throws Exception{
+    public static Jws<Claims> parseToken(String token) {
         return Jwts.parser().setSigningKey(getKey()).parseClaimsJws(token);
     }
 
