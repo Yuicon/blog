@@ -3,8 +3,14 @@ package wang.penglei.apigateway.filter;
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
 import com.netflix.zuul.exception.ZuulException;
+import io.jsonwebtoken.Claims;
+import model.User;
+import utils.JwtUtils;
 
 import javax.servlet.http.HttpServletRequest;
+import java.net.URLEncoder;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 /**
  * @author Yuicon
@@ -12,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 public class LoginFilter extends ZuulFilter {
 
     private final String authName = "token";
+    private final Gson gson = (new GsonBuilder()).create();
 
     @Override
     public String filterType() {
@@ -33,7 +40,19 @@ public class LoginFilter extends ZuulFilter {
     public Object run() throws ZuulException {
         RequestContext context = RequestContext.getCurrentContext();
         HttpServletRequest request = context.getRequest();
-        if (request.getHeader(authName) == null) {
+        String token = request.getHeader(authName);
+        if (token == null) {
+            context.setSendZuulResponse(false);
+            context.setResponseStatusCode(401);
+        }
+        try {
+            Claims claims = JwtUtils.parseToken(token).getBody();
+            User user = new User();
+            user.setId(claims.get("id", Integer.class));
+            user.setEmail(claims.get("email", String.class));
+            user.setUsername(claims.getSubject());
+            context.addZuulRequestHeader("user", URLEncoder.encode(gson.toJson(user),"UTF-8"));
+        } catch (Exception e) {
             context.setSendZuulResponse(false);
             context.setResponseStatusCode(401);
         }
