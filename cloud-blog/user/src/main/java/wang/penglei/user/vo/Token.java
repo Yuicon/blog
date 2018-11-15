@@ -14,9 +14,17 @@ public class Token {
 
     public static Token build(User user) {
         Token token = new Token();
-        token.accessToken =  JwtUtils.buildToken(user);
-        token.refreshToken =  JwtUtils.buildRefreshToken(user);
+        token.setAccessToken(JwtUtils.buildToken(user));
+        token.setRefreshToken(JwtUtils.buildRefreshToken(user));
         return token;
+    }
+
+    public void setAccessToken(String accessToken) {
+        this.accessToken = accessToken;
+    }
+
+    public void setRefreshToken(String refreshToken) {
+        this.refreshToken = refreshToken;
     }
 
     public String getAccessToken() {
