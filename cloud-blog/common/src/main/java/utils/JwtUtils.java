@@ -3,6 +3,7 @@ package utils;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import model.User;
 
 import javax.crypto.spec.SecretKeySpec;
@@ -16,7 +17,7 @@ import java.util.Date;
  */
 public class JwtUtils {
 
-    private static String key = "123456";
+    private static String key = "46d3a3c773f1401c9dbb2397e15163fa46d3a3c773f1401c9dbb2397e15163fa";
     private static volatile Key signKey;
 
     private static Key getKey() {
@@ -24,7 +25,7 @@ public class JwtUtils {
             synchronized (JwtUtils.class) {
                 if (signKey == null) {
                     byte[] encodedKey = Base64.getDecoder().decode(key);
-                    signKey = new SecretKeySpec(encodedKey, 0, encodedKey.length, "AES");
+                    signKey = new SecretKeySpec(encodedKey, 0, encodedKey.length, "HmacSHA512");
                 }
             }
         }

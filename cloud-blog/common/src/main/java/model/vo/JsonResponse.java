@@ -39,4 +39,15 @@ public class JsonResponse<T> {
         return jsonResponse;
     }
 
+    public String getMessage() {
+        return message;
+    }
+
+    public T getData() {
+        return data;
+    }
+
+    public boolean isSuccess() {
+        return success;
+    }
 }
