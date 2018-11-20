@@ -44,6 +44,15 @@ public interface UserMapper {
     User findByUsername(@Param("username") String username);
 
     /**
+     * 根据邮箱查询用户
+     *
+     * @param email 邮箱
+     * @return 用户数据
+     */
+    @Select("SELECT * FROM ngdc.user WHERE email = #{email};")
+    User findByEmail(@Param("email") String email);
+
+    /**
      * 根据用户id查询用户
      *
      * @param id 用户id

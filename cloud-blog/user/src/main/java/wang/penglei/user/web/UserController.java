@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Mono;
 import utils.JwtUtils;
 import wang.penglei.user.mapper.UserMapper;
+import wang.penglei.user.service.UserService;
 import wang.penglei.user.vo.Token;
 
 /**
@@ -20,10 +21,12 @@ import wang.penglei.user.vo.Token;
 public class UserController {
 
     private final UserMapper userMapper;
+    private final UserService userService;
 
     @Autowired
-    public UserController(UserMapper userMapper) {
+    public UserController(UserMapper userMapper, UserService userService) {
         this.userMapper = userMapper;
+        this.userService = userService;
     }
 
     @GetMapping()
@@ -33,16 +36,12 @@ public class UserController {
 
     @PostMapping("public/register")
     public Mono<JsonResponse> register(@RequestBody User user) {
-        return Mono.justOrEmpty(JsonResponse.success("注册成功", userMapper.insert(user)));
+        return userService.register(user);
     }
 
     @PostMapping("public/login")
     public Mono<JsonResponse> login(@RequestBody User user) {
-        User findUser = userMapper.findByUsername(user.getUsername());
-        if (findUser != null && findUser.getPassword().equals(user.getPassword())) {
-            return Mono.just(JsonResponse.success("登录成功", Token.build(findUser)));
-        }
-        return Mono.just(JsonResponse.error("登录失败"));
+        return userService.login(user);
     }
 
     @PostMapping("public/refresh")

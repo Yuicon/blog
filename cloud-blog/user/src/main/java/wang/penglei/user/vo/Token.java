@@ -19,11 +19,11 @@ public class Token {
         return token;
     }
 
-    public void setAccessToken(String accessToken) {
+    private void setAccessToken(String accessToken) {
         this.accessToken = accessToken;
     }
 
-    public void setRefreshToken(String refreshToken) {
+    private void setRefreshToken(String refreshToken) {
         this.refreshToken = refreshToken;
     }
 
