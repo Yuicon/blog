@@ -32,6 +32,8 @@ public class Article {
 
     private String body;
 
+    private int userId;
+
     public String githubUrl() {
         return "/repos/" + getGitUserName() + "/" + getRepositoryName() + "/" + "issues" + "/" + getIssueId();
     }
@@ -50,6 +52,14 @@ public class Article {
         Node document = parser.parse(body.replaceAll("\\\\r", "\r").replaceAll("\\\\n", "\n").replaceAll("\\\\t", "\t"));
         this.body = renderer.render(document);
         return this;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     public int getId() {
