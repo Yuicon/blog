@@ -3,7 +3,6 @@ package utils;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 import model.User;
 
 import javax.crypto.spec.SecretKeySpec;
