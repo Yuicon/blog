@@ -30,7 +30,7 @@ public interface UserMapper {
      * @param user 注册数据
      * @return 记录数
      */
-    @Insert("INSERT INTO ngdc.user (username, email, password, create_time)" +
+    @Insert("INSERT INTO ngdc.user (username, email, password, createTime)" +
             " VALUES (#{user.username}, #{user.email}, #{user.password}, #{user.createTime})")
     int insert(@Param("user") User user);
 
