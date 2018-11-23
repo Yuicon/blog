@@ -1,12 +1,15 @@
 package wang.penglei.user.service;
 
+import io.jsonwebtoken.ExpiredJwtException;
 import model.User;
 import model.vo.JsonResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 import reactor.core.publisher.Mono;
+import utils.JwtUtils;
 import wang.penglei.user.mapper.UserMapper;
 import wang.penglei.user.utils.EmailUtil;
 import wang.penglei.user.utils.SnaUtil;
@@ -47,6 +50,19 @@ public class UserService {
             logger.error(e.getMessage());
             return Mono.justOrEmpty(JsonResponse.error("注册失败，邮箱已被注册！"));
         }
+    }
+
+    public Mono<JsonResponse> refreshToken(@RequestBody Token token) {
+        try {
+            int id = Integer.parseInt(JwtUtils.parseToken(token.getRefreshToken()).getBody().getSubject());
+            User user = userMapper.findById(id);
+            return Mono.just(JsonResponse.success("刷新成功", Token.build(user)));
+        } catch (ExpiredJwtException e) {
+            return Mono.just(JsonResponse.error("Token 已超时"));
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+        }
+        return Mono.just(JsonResponse.error("刷新失败"));
     }
 
 }

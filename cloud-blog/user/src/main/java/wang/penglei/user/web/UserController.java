@@ -46,16 +46,7 @@ public class UserController {
 
     @PostMapping("public/refresh")
     public Mono<JsonResponse> refreshToken(@RequestBody Token token) {
-        try {
-            int id = Integer.parseInt(JwtUtils.parseToken(token.getRefreshToken()).getBody().getSubject());
-            User user = userMapper.findById(id);
-            return Mono.just(JsonResponse.success("刷新成功", Token.build(user)));
-        } catch (ExpiredJwtException e) {
-            return Mono.just(JsonResponse.error("Token 已超时"));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return Mono.just(JsonResponse.error("登录失败"));
+        return userService.refreshToken(token);
     }
 
 }
