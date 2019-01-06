@@ -1,6 +1,5 @@
 package wang.penglei.user.web;
 
-import io.jsonwebtoken.ExpiredJwtException;
 import model.User;
 import model.vo.JsonResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +8,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Mono;
-import utils.JwtUtils;
 import wang.penglei.user.mapper.UserMapper;
 import wang.penglei.user.service.UserService;
 import wang.penglei.user.vo.Token;

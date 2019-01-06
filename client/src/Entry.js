@@ -6,10 +6,6 @@ import React, {Component} from "react";
 
 class Entry extends Component {
 
-    handleOnClick = () => {
-        this.props.history.push(`/articles/${this.props.article.id}`);
-    };
-
     render() {
 
         return (

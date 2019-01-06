@@ -40,6 +40,7 @@ class Article extends Component {
 
             gitalk.render('gitalk-container');
             hljs.initHighlighting();
+            window._hmt.push(['_trackPageview', `/articles/${article.id}`]);
         });
         console.log(article);
     }
