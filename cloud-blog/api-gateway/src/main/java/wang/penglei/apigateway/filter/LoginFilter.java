@@ -1,5 +1,6 @@
 package wang.penglei.apigateway.filter;
 
+import com.google.gson.Gson;
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
 import com.netflix.zuul.exception.ZuulException;
@@ -9,8 +10,6 @@ import utils.JwtUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import java.net.URLEncoder;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 /**
  * @author Yuicon
@@ -18,7 +17,7 @@ import com.google.gson.GsonBuilder;
 public class LoginFilter extends ZuulFilter {
 
     private final String authName = "token";
-    private final Gson gson = (new GsonBuilder()).create();
+    private final Gson gson = new Gson();
 
     @Override
     public String filterType() {
