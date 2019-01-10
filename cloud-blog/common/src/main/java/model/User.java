@@ -18,21 +18,14 @@ public class User {
 
     private LocalDateTime createTime;
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (!(o instanceof User)) {
-            return false;
-        }
-        User user = (User) o;
-        return getId() == user.getId();
+    private boolean isDelete;
+
+    public boolean isDelete() {
+        return isDelete;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(getId());
+    public void setDelete(boolean delete) {
+        isDelete = delete;
     }
 
     @Override
