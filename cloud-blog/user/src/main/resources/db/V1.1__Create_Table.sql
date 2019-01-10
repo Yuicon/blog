@@ -1,0 +1,12 @@
+DROP TABLE IF EXISTS yuicon.user;
+
+CREATE TABLE yuicon.user (
+    `id` INT NOT NULL AUTO_INCREMENT,
+    `username` VARCHAR(45) NOT NULL,
+    `password` VARCHAR(255) NOT NULL,
+    `email` VARCHAR(45) NOT NULL,
+    `createTime` DATETIME NOT NULL,
+    `delete` BOOLEAN DEFAULT FALSE,
+    PRIMARY KEY (`id`),
+    UNIQUE INDEX `email_UNIQUE` (`email` ASC)
+)  ENGINE=INNODB DEFAULT CHARSET=UTF8 AUTO_INCREMENT=1;

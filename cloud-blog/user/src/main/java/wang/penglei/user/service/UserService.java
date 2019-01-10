@@ -42,6 +42,9 @@ public class UserService {
         if (!EmailUtil.check(user.getEmail())) {
             return Mono.just(JsonResponse.error("邮箱地址格式错误！"));
         }
+        if (user.getUsername().isEmpty() || user.getPassword().isEmpty()) {
+            return Mono.just(JsonResponse.error("用户名或密码不能为空！"));
+        }
         user.setPassword(SnaUtil.digest(user.getPassword()));
         user.setCreateTime(LocalDateTime.now());
         try {
