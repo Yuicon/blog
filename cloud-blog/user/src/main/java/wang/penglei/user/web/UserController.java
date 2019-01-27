@@ -3,6 +3,7 @@ package wang.penglei.user.web;
 import model.User;
 import model.vo.JsonResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -33,17 +34,17 @@ public class UserController {
     }
 
     @PostMapping("public/register")
-    public Mono<JsonResponse> register(@RequestBody User user) {
+    public Mono<ResponseEntity> register(@RequestBody User user) {
         return userService.register(user);
     }
 
     @PostMapping("public/login")
-    public Mono<JsonResponse> login(@RequestBody User user) {
+    public Mono<ResponseEntity> login(@RequestBody User user) {
         return userService.login(user);
     }
 
     @PostMapping("public/refresh")
-    public Mono<JsonResponse> refreshToken(@RequestBody Token token) {
+    public Mono<ResponseEntity> refreshToken(@RequestBody Token token) {
         return userService.refreshToken(token);
     }
 
