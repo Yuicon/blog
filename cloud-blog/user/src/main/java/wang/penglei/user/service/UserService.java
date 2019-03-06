@@ -9,6 +9,7 @@ import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
 import reactor.core.publisher.Mono;
 import utils.JwtUtils;
@@ -17,12 +18,14 @@ import wang.penglei.user.utils.EmailUtil;
 import wang.penglei.user.utils.SnaUtil;
 import wang.penglei.user.vo.Token;
 
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 
 /**
  * @author Yuicon
  */
 @Service
+@Transactional(rollbackFor = {SQLException.class})
 public class UserService {
 
     private final UserMapper userMapper;
@@ -32,6 +35,7 @@ public class UserService {
         this.userMapper = userMapper;
     }
 
+    @Transactional(readOnly = true, rollbackFor = {SQLException.class})
     public Mono<ResponseEntity> login(User user) {
         User findUser = userMapper.findByEmail(user.getEmail());
         if (findUser != null && findUser.getPassword().equals(SnaUtil.digest(user.getPassword()))) {
