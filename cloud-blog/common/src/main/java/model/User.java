@@ -12,6 +12,12 @@ public class User {
 
     private String username;
 
+    private String nickname;
+
+    private String phone;
+
+    private int sex;
+
     private String password;
 
     private String email;
@@ -20,23 +26,36 @@ public class User {
 
     private boolean isDelete;
 
+    public int getSex() {
+        return sex;
+    }
+
+    public void setSex(int sex) {
+        this.sex = sex;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
     public boolean isDelete() {
         return isDelete;
     }
 
     public void setDelete(boolean delete) {
         isDelete = delete;
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", email='" + email + '\'' +
-                ", createTime=" + createTime +
-                '}';
     }
 
     public int getId() {
