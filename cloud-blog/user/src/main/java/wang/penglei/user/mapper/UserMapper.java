@@ -30,8 +30,8 @@ public interface UserMapper {
      * @param user 注册数据
      * @return 记录数
      */
-    @Insert("INSERT INTO yuicon.user (username, email, password, createTime)" +
-            " VALUES (#{user.username}, #{user.email}, #{user.password}, #{user.createTime})")
+    @Insert("INSERT INTO yuicon.user (username, email, password)" +
+            " VALUES (#{user.username}, #{user.email}, #{user.password})")
     int insert(@Param("user") User user);
 
     /**
