@@ -18,10 +18,7 @@ public interface UserMapper {
      *
      * @return 用户列表
      */
-    @Select("SELECT * FROM yuicon.user;")
-    @Results({
-            @Result(property = "createTime", column = "create_time"),
-    })
+    @Select("SELECT * FROM user;")
     List<User> findAll();
 
     /**
@@ -30,7 +27,7 @@ public interface UserMapper {
      * @param user 注册数据
      * @return 记录数
      */
-    @Insert("INSERT INTO yuicon.user (username, email, password)" +
+    @Insert("INSERT INTO user (username, email, password)" +
             " VALUES (#{user.username}, #{user.email}, #{user.password})")
     int insert(@Param("user") User user);
 
@@ -40,7 +37,7 @@ public interface UserMapper {
      * @param username 用户名
      * @return 用户数据
      */
-    @Select("SELECT * FROM yuicon.user WHERE username = #{username} AND isDelete = 0;")
+    @Select("SELECT * FROM user WHERE username = #{username};")
     List<User> findByUsername(@Param("username") String username);
 
     /**
@@ -49,7 +46,7 @@ public interface UserMapper {
      * @param email 邮箱
      * @return 用户数据
      */
-    @Select("SELECT * FROM yuicon.user WHERE email = #{email} AND isDelete = 0;")
+    @Select("SELECT * FROM user WHERE email = #{email};")
     User findByEmail(@Param("email") String email);
 
     /**
@@ -58,7 +55,7 @@ public interface UserMapper {
      * @param id 用户id
      * @return 用户数据
      */
-    @Select("SELECT * FROM yuicon.user WHERE id = #{id} AND isDelete = 0;")
+    @Select("SELECT * FROM user WHERE id = #{id};")
     User findById(@Param("id") int id);
 
 }

@@ -8,7 +8,7 @@ CREATE TABLE saabisu.user (
     `phone` VARCHAR(255),
     `sex` INT(11) DEFAULT 0,
     `createTime` DATETIME DEFAULT CURRENT_TIMESTAMP,
-    `isDelete` BOOLEAN DEFAULT FALSE,
+    `state` INT(11) DEFAULT 0,
     PRIMARY KEY (`id`),
     UNIQUE INDEX `email_UNIQUE` (`email` ASC),
     UNIQUE INDEX `username_UNIQUE` (`username` ASC),

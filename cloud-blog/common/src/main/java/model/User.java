@@ -22,7 +22,15 @@ public class User {
 
     private LocalDateTime createTime;
 
-    private boolean isDelete;
+    private int state;
+
+    public int getState() {
+        return state;
+    }
+
+    public void setState(int state) {
+        this.state = state;
+    }
 
     public int getSex() {
         return sex;
@@ -38,14 +46,6 @@ public class User {
 
     public void setPhone(String phone) {
         this.phone = phone;
-    }
-
-    public boolean isDelete() {
-        return isDelete;
-    }
-
-    public void setDelete(boolean delete) {
-        isDelete = delete;
     }
 
     public int getId() {
