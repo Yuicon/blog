@@ -1,5 +1,7 @@
 package model;
 
+import constant.UserStateConstant;
+
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -23,6 +25,20 @@ public class User {
     private LocalDateTime createTime;
 
     private int state;
+
+    /**
+     * @return 用户状态是否正常
+     */
+    public boolean isAlright() {
+        return state != UserStateConstant.ALRIGHT;
+    }
+
+    /**
+     * @return 状态说明
+     */
+    public String getStateInstruction() {
+        return UserStateConstant.instruction(state);
+    }
 
     public int getState() {
         return state;
