@@ -103,10 +103,8 @@ public class AccountService {
      */
     public Mono<ResponseEntity> activate(String email, String code) {
         String key = KEY + ":" + email;
-        System.out.println(key);
         Account account = accountMapper.findByEmail(email);
         return reactiveRedisTemplate.hasKey(key).flatMap(aBoolean -> {
-            System.out.println(aBoolean);
             if (!aBoolean) {
                 return Mono.just(ResponseEntity.badRequest().body(JsonResponse.error("激活失败，找不到邮箱，验证码可能已过期！")));
             }
