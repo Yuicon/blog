@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Mono;
 import wang.penglei.user.mapper.AccountMapper;
 import wang.penglei.user.service.AccountService;
+import wang.penglei.user.vo.ActivateData;
 import wang.penglei.user.vo.Token;
 
 /**
@@ -37,6 +38,11 @@ public class AccountController {
     @PostMapping("public/register")
     public Mono<ResponseEntity> register(ServerHttpRequest request, @RequestBody Account user) {
         return accountService.register(user, request);
+    }
+
+    @PostMapping("public/activate")
+    public Mono<ResponseEntity> activate(@RequestBody ActivateData activateData) {
+        return accountService.activate(activateData.getEmail(), activateData.getCode());
     }
 
     @PostMapping("public/login")
