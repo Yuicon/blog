@@ -3,12 +3,11 @@ package model;
 import constant.UserStateConstant;
 
 import java.time.LocalDateTime;
-import java.util.Objects;
 
 /**
  * @author Yuicon
  */
-public class User {
+public class Account {
 
     private int id;
 
@@ -22,9 +21,49 @@ public class User {
 
     private String email;
 
-    private LocalDateTime createTime;
+    private LocalDateTime createAt;
+
+    private String createAtIP;
+
+    private LocalDateTime lastLoginAt;
+
+    private String lastLoginIP;
+
+    private int loginTimes;
 
     private int state;
+
+    public String getCreateAtIP() {
+        return createAtIP;
+    }
+
+    public void setCreateAtIP(String createAtIP) {
+        this.createAtIP = createAtIP;
+    }
+
+    public LocalDateTime getLastLoginAt() {
+        return lastLoginAt;
+    }
+
+    public void setLastLoginAt(LocalDateTime lastLoginAt) {
+        this.lastLoginAt = lastLoginAt;
+    }
+
+    public String getLastLoginIP() {
+        return lastLoginIP;
+    }
+
+    public void setLastLoginIP(String lastLoginIP) {
+        this.lastLoginIP = lastLoginIP;
+    }
+
+    public int getLoginTimes() {
+        return loginTimes;
+    }
+
+    public void setLoginTimes(int loginTimes) {
+        this.loginTimes = loginTimes;
+    }
 
     /**
      * @return 用户状态是否正常
@@ -96,11 +135,11 @@ public class User {
         this.email = email;
     }
 
-    public LocalDateTime getCreateTime() {
-        return createTime;
+    public LocalDateTime getCreateAt() {
+        return createAt;
     }
 
-    public void setCreateTime(LocalDateTime createTime) {
-        this.createTime = createTime;
+    public void setCreateAt(LocalDateTime createAt) {
+        this.createAt = createAt;
     }
 }

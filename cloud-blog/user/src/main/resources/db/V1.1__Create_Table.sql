@@ -1,14 +1,16 @@
-DROP TABLE IF EXISTS saabisu.user;
-
-CREATE TABLE saabisu.user (
-    `id` INT NOT NULL AUTO_INCREMENT,
-    `username` VARCHAR(255) NOT NULL,
-    `password` VARCHAR(255) NOT NULL,
-    `email` VARCHAR(255) NOT NULL,
-    `phone` VARCHAR(255),
-    `sex` INT(11) DEFAULT 0,
-    `createTime` DATETIME DEFAULT CURRENT_TIMESTAMP,
-    `state` INT(11) DEFAULT 0,
+CREATE TABLE `account` (
+    `id` INT NOT NULL AUTO_INCREMENT COMMENT '账号id',
+    `username` VARCHAR(255) NOT NULL COMMENT '用户名',
+    `password` VARCHAR(255) NOT NULL COMMENT '密码',
+    `email` VARCHAR(255) NOT NULL COMMENT '邮箱',
+    `phone` VARCHAR(255) NOT NULL DEFAULT '' COMMENT '手机号',
+    `sex` INT(11) DEFAULT 0 COMMENT '性别',
+    `createAt` DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `loginTimes` INT(11) DEFAULT 0 COMMENT '登录次数',
+    `lastLoginAt` DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT '最后登录时间',
+    `createAtIP` VARCHAR(255) NOT NULL COMMENT '创建IP',
+    `lastLoginIP` VARCHAR(255) NOT NULL DEFAULT '' COMMENT '最后登录IP',
+    `state` INT(11) DEFAULT 0 COMMENT '状态',
     PRIMARY KEY (`id`),
     UNIQUE INDEX `email_UNIQUE` (`email` ASC),
     UNIQUE INDEX `username_UNIQUE` (`username` ASC),

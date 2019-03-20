@@ -1,6 +1,6 @@
 package wang.penglei.user.vo;
 
-import model.User;
+import model.Account;
 import utils.JwtUtils;
 
 /**
@@ -12,7 +12,7 @@ public class Token {
 
     private String refreshToken;
 
-    public static Token build(User user) {
+    public static Token build(Account user) {
         Token token = new Token();
         token.setAccessToken(JwtUtils.buildToken(user));
         token.setRefreshToken(JwtUtils.buildRefreshToken(user));

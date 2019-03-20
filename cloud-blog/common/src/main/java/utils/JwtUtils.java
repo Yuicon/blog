@@ -3,7 +3,7 @@ package utils;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
-import model.User;
+import model.Account;
 
 import javax.crypto.spec.SecretKeySpec;
 import java.security.Key;
@@ -31,27 +31,27 @@ public class JwtUtils {
         return signKey;
     }
 
-    public static String buildToken(User user) {
+    public static String buildToken(Account account) {
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.MINUTE, 20);
         return Jwts.builder()
                 .setIssuer("Yuicon")
-                .setSubject(user.getUsername())
+                .setSubject(account.getUsername())
                 .setIssuedAt(new Date())
                 .setAudience("human")
                 .setExpiration(Date.from(calendar.toInstant()))
                 .signWith(getKey())
-                .claim("id", user.getId())
-                .claim("email", user.getEmail())
+                .claim("id", account.getId())
+                .claim("email", account.getEmail())
                 .compact();
     }
 
-    public static String buildRefreshToken(User user) {
+    public static String buildRefreshToken(Account account) {
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.HOUR, 24);
         return Jwts.builder()
                 .setIssuer("Yuicon")
-                .setSubject(String.valueOf(user.getId()))
+                .setSubject(String.valueOf(account.getId()))
                 .setIssuedAt(new Date())
                 .setAudience("human")
                 .setExpiration(Date.from(calendar.toInstant()))
