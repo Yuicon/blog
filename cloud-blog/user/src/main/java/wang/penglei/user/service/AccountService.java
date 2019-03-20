@@ -59,14 +59,20 @@ public class AccountService {
      */
     public Mono<ResponseEntity> login(Account user, ServerHttpRequest request) {
         Account findAccount = accountMapper.findByEmail(user.getEmail());
-        if (findAccount != null && findAccount.getPassword().equals(SnaUtil.digest(user.getPassword()))) {
-            findAccount.setLastLoginIP(Objects.requireNonNull(request.getRemoteAddress()).getAddress().getHostAddress());
-            findAccount.setLastLoginAt(LocalDateTime.now());
-            findAccount.setLoginTimes(findAccount.getLoginTimes() + 1);
-            accountMapper.update(findAccount);
-            return Mono.just(ResponseEntity.ok(JsonResponse.success("登录成功", Token.build(findAccount))));
+        if (findAccount == null ) {
+            return Mono.just(ResponseEntity.badRequest().body(JsonResponse.error("不存在的用户")));
         }
-        return Mono.just(ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(JsonResponse.error("登录失败")));
+        if (!findAccount.isAlright()) {
+            return Mono.just(ResponseEntity.badRequest().body(JsonResponse.error("用户已删除或未激活")));
+        }
+        if (!findAccount.getPassword().equals(SnaUtil.digest(user.getPassword()))) {
+            return Mono.just(ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(JsonResponse.error("登录失败，账号或密码错误")));
+        }
+        findAccount.setLastLoginIP(Objects.requireNonNull(request.getRemoteAddress()).getAddress().getHostAddress());
+        findAccount.setLastLoginAt(LocalDateTime.now());
+        findAccount.setLoginTimes(findAccount.getLoginTimes() + 1);
+        accountMapper.update(findAccount);
+        return Mono.just(ResponseEntity.ok(JsonResponse.success("登录成功", Token.build(findAccount))));
     }
 
     /**
