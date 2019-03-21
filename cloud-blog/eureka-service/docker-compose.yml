@@ -3,5 +3,5 @@ services:
   web:
     image: registry.cn-hangzhou.aliyuncs.com/yuicon/eureka-service:0.0.1-SNAPSHOT
     ports:
-    - "8089:18080"
+    - "18080:18080"
 
