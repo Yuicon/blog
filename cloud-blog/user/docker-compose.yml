@@ -1,7 +1,7 @@
 version: '2'
 services:
   web:
-    image: registry.cn-hangzhou.aliyuncs.com/yuicon/user-service:1.0.2-SNAPSHOT
+    image: registry.cn-hangzhou.aliyuncs.com/yuicon/user-service:1.0.3-SNAPSHOT
     ports:
     - "18090:18090"
 

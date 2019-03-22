@@ -69,7 +69,7 @@ public class Account {
      * @return 用户状态是否正常
      */
     public boolean isAlright() {
-        return state != UserStateConstant.ALRIGHT;
+        return state == UserStateConstant.ALRIGHT;
     }
 
     /**
