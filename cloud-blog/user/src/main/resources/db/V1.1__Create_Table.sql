@@ -1,4 +1,4 @@
-CREATE TABLE `account` (
+CREATE TABLE IF NOT EXISTS `account` (
     `id` INT NOT NULL AUTO_INCREMENT COMMENT '账号id',
     `username` VARCHAR(255) NOT NULL COMMENT '用户名',
     `password` VARCHAR(255) NOT NULL COMMENT '密码',
