@@ -5,7 +5,7 @@ import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
 import com.netflix.zuul.exception.ZuulException;
 import io.jsonwebtoken.Claims;
-import model.User;
+import model.Account;
 import utils.JwtUtils;
 
 import javax.servlet.http.HttpServletRequest;
@@ -46,7 +46,7 @@ public class LoginFilter extends ZuulFilter {
         }
         try {
             Claims claims = JwtUtils.parseToken(token).getBody();
-            User user = new User();
+            Account user = new Account();
             user.setId(claims.get("id", Integer.class));
             user.setEmail(claims.get("email", String.class));
             user.setUsername(claims.getSubject());
