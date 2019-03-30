@@ -3,7 +3,8 @@
  */
 import React, {Component} from "react";
 import Login from "./Login";
-import { Button } from 'antd';
+import {Button} from 'antd';
+import Register from "./Register";
 
 class UserInfo extends Component {
 
@@ -11,7 +12,8 @@ class UserInfo extends Component {
         super();
         this.state = {
             username: localStorage.getItem("username"),
-            loginVisible: false
+            loginVisible: false,
+            registerVisible: false,
         };
     }
 
@@ -25,15 +27,32 @@ class UserInfo extends Component {
         this.setState({loginVisible: false});
     };
 
+    handleOnRegisterOk = () => {
+        this.setState({registerVisible: false, loginVisible: true});
+    };
+
+    handleOnRegisterCancel = () => {
+        this.setState({registerVisible: false});
+    };
+
     login = () => {
-        this.setState({loginVisible: true});
+        this.setState({registerVisible: true});
+    };
+
+    register = () => {
+        this.setState({registerVisible: true});
     };
 
     render() {
         return (
             <div className="username">
-                <Login visible={this.state.loginVisible} handleOk={this.handleOnLoginOk} handleCancel={this.handleOnLoginCancel}/>
-                <h3>{this.state.username ? this.state.username : <Button onClick={this.login}>登录</Button>}</h3>
+                <Login visible={this.state.loginVisible} handleOk={this.handleOnLoginOk}
+                       handleCancel={this.handleOnLoginCancel}/>
+                <Register visible={this.state.registerVisible} handleOk={this.handleOnRegisterOk}
+                       handleCancel={this.handleOnRegisterCancel}/>
+                <h3>{this.state.username ? this.state.username :
+                    <div><Button onClick={this.login} type="primary">登录</Button>&nbsp;<Button onClick={this.register}>注册</Button>
+                    </div>}</h3>
             </div>
         );
     }
