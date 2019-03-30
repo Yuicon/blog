@@ -1,10 +1,10 @@
 import React, {Component} from "react";
-import {api} from "./api";
+import {blogApi} from "../api/blogApi";
 import 'highlight.js/styles/github-gist.css';
 import hljs from 'highlight.js';
 import 'gitalk/dist/gitalk.css'
 import Gitalk from 'gitalk'
-
+import { Spin } from 'antd';
 
 /**
  * @author Yuicon
@@ -16,7 +16,8 @@ class Article extends Component {
         super();
         this.state = {
             article: {},
-            error: ""
+            error: "",
+            spinning: false
         };
     }
 
@@ -25,8 +26,9 @@ class Article extends Component {
     };
 
     async componentDidMount() {
-        const article = await api.getArticleById(this.props.match.params.id);
-        this.setState({article, error: "<h1>没有文章哦！</h1>"}, () => {
+        this.setState({spinning: true});
+        const article = await blogApi.getArticleById(this.props.match.params.id);
+        this.setState({article, error: "<h1>没有文章哦！</h1>", spinning: false}, () => {
             const gitalk = new Gitalk({
                 clientID: '1f4bdb550130e267946f',
                 clientSecret: '1b48fcde26285d26e4b71193bff6f1d809031a03',
@@ -42,13 +44,13 @@ class Article extends Component {
             hljs.initHighlighting();
             window._hmt.push(['_trackPageview', `/articles/${article.id}`]);
         });
-        console.log(article);
     }
 
     render() {
 
         return (
             <div>
+                <Spin spinning={this.state.spinning} size="large"/>
                 <h1>{this.state.article.title}</h1>
                 <article className="markdown-body" dangerouslySetInnerHTML={{__html: this.state.article.body || this.state.error}}>
                 </article>

@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {api} from "./api";
+import {blogApi} from "../api/blogApi";
 
 /**
  * @author Yuicon
@@ -28,12 +28,12 @@ class New extends Component {
     handleOnClick = async () => {
         console.log(this.state);
         if (this.state.gitUserName !== "" && this.state.repositoryName !== "") {
-            const gitIssue = await api.getArticle(this.state.gitUserName, this.state.repositoryName, this.state.issueId);
+            const gitIssue = await blogApi.getArticle(this.state.gitUserName, this.state.repositoryName, this.state.issueId);
             if (gitIssue.message !== undefined) {
                 alert(gitIssue.message);
             } else {
-                const newArticle = await api.addArticle(this.state.gitUserName, this.state.repositoryName, this.state.issueId);
-                await api.putArticle(newArticle.id, gitIssue.title, gitIssue.body,
+                const newArticle = await blogApi.addArticle(this.state.gitUserName, this.state.repositoryName, this.state.issueId);
+                await blogApi.putArticle(newArticle.id, gitIssue.title, gitIssue.body,
                     gitIssue.created_at, gitIssue.updated_at, gitIssue.closed_at);
                 alert("新建成功");
             }

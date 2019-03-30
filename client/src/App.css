@@ -13,8 +13,14 @@ body {
 
 .App-header {
     background-color: white;
-    padding: 1px 5vw;
+    padding: 1px 20vw;
     border-bottom: 1px solid #ececec;
+    display: flex;
+    justify-content: space-between;
+}
+
+.App-header .username {
+
 }
 
 .App-title {
@@ -131,6 +137,15 @@ body {
     position: absolute;
     bottom: 45px;
     font-size: 14px;
+}
+
+.friend-link {
+
+}
+
+.friend-link a {
+    text-decoration: none;
+    color: #058deb;
 }
 
 .comment-content {

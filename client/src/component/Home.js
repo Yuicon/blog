@@ -1,6 +1,7 @@
 import React, {Component} from "react";
-import {api} from "./api";
+import {blogApi} from "../api/blogApi";
 import Entry from "./Entry";
+import { Spin } from 'antd';
 
 /**
  * @author Yuicon
@@ -11,15 +12,17 @@ class Home extends Component {
     constructor() {
         super();
         this.state = {
-            articles: []
+            articles: [],
+            spinning: false
         }
     }
 
     async componentDidMount() {
-        const body = await api.getArticles();
-        console.log(body);
+        this.setState({spinning: true});
+        const body = await blogApi.getArticles();
         this.setState({
-            articles: body.content
+            articles: body.content,
+            spinning: false
         });
     }
 
@@ -29,6 +32,7 @@ class Home extends Component {
 
         return (
             <div className="entry-list">
+                <Spin spinning={this.state.spinning} size="large"/>
                 {entryList}
             </div>
         );

@@ -2,14 +2,14 @@
  * @author Yuicon
  */
 
-const baseUrl = "https://blog.penglei.wang";
+const blogBaseUrl = "https://blog.penglei.wang";
 
 function getArticles(page = 0, size = 20) {
-    return fetch(baseUrl + `/articles?page=${page}&size=${size}`).then(response => response.json()).then(json => json);
+    return fetch(blogBaseUrl + `/articles?page=${page}&size=${size}`).then(response => response.json()).then(json => json);
 }
 
 function getArticleById(id) {
-    return fetch(baseUrl + "/articles/" + id).then(response => response.json()).then(json => json);
+    return fetch(blogBaseUrl + "/articles/" + id).then(response => response.json()).then(json => json);
 }
 
 function getArticle(gitUserName, repositoryName, issueId) {
@@ -17,7 +17,7 @@ function getArticle(gitUserName, repositoryName, issueId) {
 }
 
 function addArticle(gitUserName, repositoryName, issueId) {
-    return fetch(baseUrl + `/articles`, {
+    return fetch(blogBaseUrl + `/articles`, {
         body: JSON.stringify({gitUserName, repositoryName, issueId}), // must match 'Content-Type' header
         cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
         headers: {
@@ -28,7 +28,7 @@ function addArticle(gitUserName, repositoryName, issueId) {
 }
 
 function putArticle(id, title, body, createdAt, updatedAt, closedAt) {
-    return fetch(baseUrl + `/articles`, {
+    return fetch(blogBaseUrl + `/articles`, {
         body: JSON.stringify({id, title, body, createdAt, updatedAt, closedAt}), // must match 'Content-Type' header
         cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
         headers: {
@@ -38,10 +38,10 @@ function putArticle(id, title, body, createdAt, updatedAt, closedAt) {
     }).then(response => response.json()).then(json => json);
 }
 
-export const api = {};
+export const blogApi = {};
 
-api.getArticles = getArticles;
-api.addArticle = addArticle;
-api.putArticle = putArticle;
-api.getArticle = getArticle;
-api.getArticleById = getArticleById;
+blogApi.getArticles = getArticles;
+blogApi.addArticle = addArticle;
+blogApi.putArticle = putArticle;
+blogApi.getArticle = getArticle;
+blogApi.getArticleById = getArticleById;

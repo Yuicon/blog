@@ -1115,7 +1115,7 @@ You may also specify any configuration value [`http-proxy-middleware`](https://g
 {
   // ...
   "proxy": {
-    "/api": {
+    blogApi: {
       "target": "<url>",
       "ws": true
       // ...
@@ -1133,8 +1133,8 @@ Matches are regular expressions, so that you can use a regexp to match multiple 
 {
   // ...
   "proxy": {
-    // Matches any request starting with /api
-    "/api": {
+    blogApi
+    blogApi: {
       "target": "<url_1>",
       "ws": true
       // ...
