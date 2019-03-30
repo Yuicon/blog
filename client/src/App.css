@@ -13,7 +13,7 @@ body {
 
 .App-header {
     background-color: white;
-    padding: 1px 20vw;
+    padding: 16px 20vw;
     border-bottom: 1px solid #ececec;
     display: flex;
     justify-content: space-between;

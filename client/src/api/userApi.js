@@ -2,7 +2,17 @@
  * @author Yuicon
  */
 
-const userBaseUrl = "http://blogApi.saabisu.cn/user-service";
+const userBaseUrl = "http://api.saabisu.cn/user-service";
+
+function checkStatus(response) {
+    if (response.ok) {
+        return response.json()
+    } else {
+        const error = new Error(response.statusText);
+        error.body = response.json();
+        throw error;
+    }
+}
 
 function login(email, password) {
     return fetch(userBaseUrl + `/public/login`, {
@@ -12,7 +22,7 @@ function login(email, password) {
             'content-type': 'application/json'
         },
         method: 'POST', // *GET, POST, PUT, DELETE, etc.
-    }).then(response => response.json()).then(json => json);
+    }).then(checkStatus).then(json => json).catch(error => error.body);
 }
 
 function register(email, username, password) {

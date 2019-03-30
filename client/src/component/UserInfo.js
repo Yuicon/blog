@@ -2,21 +2,37 @@
  * @author Yuicon
  */
 import React, {Component} from "react";
+import Login from "./Login";
+import { Button } from 'antd';
 
 class UserInfo extends Component {
 
     constructor() {
         super();
         this.state = {
-            user: null,
+            userData: null,
+            loginVisible: false
         };
     }
 
-    render() {
+    handleOnLoginOk = (userData) => {
+        localStorage.setItem("accessToken", userData.accessToken);
+        this.setState({loginVisible: false, userData: userData});
+    };
 
+    handleOnLoginCancel = () => {
+        this.setState({loginVisible: false});
+    };
+
+    login = () => {
+        this.setState({loginVisible: true});
+    };
+
+    render() {
         return (
             <div className="username">
-                <h3>{this.state.user ? this.state.user.username : "未登录"}</h3>
+                <Login visible={this.state.loginVisible} handleOk={this.handleOnLoginOk} handleCancel={this.handleOnLoginCancel}/>
+                <h3>{this.state.user ? this.state.userData.username : <Button onClick={this.login}>登录</Button>}</h3>
             </div>
         );
     }
