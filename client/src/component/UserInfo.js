@@ -10,14 +10,15 @@ class UserInfo extends Component {
     constructor() {
         super();
         this.state = {
-            userData: null,
+            username: localStorage.getItem("username"),
             loginVisible: false
         };
     }
 
     handleOnLoginOk = (userData) => {
         localStorage.setItem("accessToken", userData.accessToken);
-        this.setState({loginVisible: false, userData: userData});
+        localStorage.setItem("username", userData.username);
+        this.setState({loginVisible: false, username: userData.username});
     };
 
     handleOnLoginCancel = () => {
@@ -32,7 +33,7 @@ class UserInfo extends Component {
         return (
             <div className="username">
                 <Login visible={this.state.loginVisible} handleOk={this.handleOnLoginOk} handleCancel={this.handleOnLoginCancel}/>
-                <h3>{this.state.user ? this.state.userData.username : <Button onClick={this.login}>登录</Button>}</h3>
+                <h3>{this.state.username ? this.state.username : <Button onClick={this.login}>登录</Button>}</h3>
             </div>
         );
     }
