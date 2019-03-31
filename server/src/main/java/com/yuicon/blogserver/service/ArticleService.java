@@ -2,13 +2,16 @@ package com.yuicon.blogserver.service;
 
 import com.yuicon.blogserver.mapper.ArticleMapper;
 import com.yuicon.blogserver.model.Article;
+import model.vo.JsonResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.redis.core.ReactiveRedisTemplate;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -20,12 +23,18 @@ import java.util.List;
 public class ArticleService {
 
     private final ArticleMapper articleMapper;
-    private final WebClient gitWebClient;
+    private final ReactiveRedisTemplate<String, Article> reactiveRedisTemplate;
+    private final String ARTICLE_KEY = "ARTICLE:";
+    private final String ARTICLES_KEY = "ARTICLES:";
 
     @Autowired
-    public ArticleService(ArticleMapper articleMapper, WebClient githubWebClient) {
+    public ArticleService(ArticleMapper articleMapper, ReactiveRedisTemplate<String, Article> reactiveRedisTemplate) {
         this.articleMapper = articleMapper;
-        this.gitWebClient = githubWebClient;
+        this.reactiveRedisTemplate = reactiveRedisTemplate;
+    }
+
+    public static void main(String[] args) {
+        System.out.println(LocalDateTime.parse("2017-08-13T07:09:00Z", DateTimeFormatter.ISO_INSTANT));
     }
 
     public Mono<Article> put(Article article) {
@@ -51,16 +60,20 @@ public class ArticleService {
         return Mono.just(new PageImpl<>(articles, PageRequest.of(page, size), articleMapper.count()));
     }
 
-    public Article findById(int id) {
-        Article article = articleMapper.findById(id);
-        if (article == null) {
-            return new Article();
-        }
-        return article.toHtml();
-    }
-
-    public static void main(String[] args) {
-        System.out.println(LocalDateTime.parse("2017-08-13T07:09:00Z", DateTimeFormatter.ISO_INSTANT));
+    public Mono<ResponseEntity> findById(int id) {
+        String key = ARTICLE_KEY + id;
+        return reactiveRedisTemplate.hasKey(key).flatMap(aBoolean -> {
+            if (!aBoolean) {
+                Article article = articleMapper.findById(id);
+                article.toHtml();
+                reactiveRedisTemplate.opsForValue().set(key, article).doOnNext(aBoolean1 -> {
+                   if (aBoolean1) {
+                       reactiveRedisTemplate.expire(key, Duration.ofDays(1));
+                   }
+                });
+            }
+            return reactiveRedisTemplate.opsForValue().get(key);
+        }).map(article -> ResponseEntity.ok(JsonResponse.success(article)));
     }
 
 }
