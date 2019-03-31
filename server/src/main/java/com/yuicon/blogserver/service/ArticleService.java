@@ -11,7 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
-import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -61,19 +60,11 @@ public class ArticleService {
     }
 
     public Mono<ResponseEntity> findById(int id) {
-        String key = ARTICLE_KEY + id;
-        return reactiveRedisTemplate.hasKey(key).flatMap(aBoolean -> {
-            if (!aBoolean) {
-                Article article = articleMapper.findById(id);
-                article.toHtml();
-                reactiveRedisTemplate.opsForValue().set(key, article).doOnNext(aBoolean1 -> {
-                   if (aBoolean1) {
-                       reactiveRedisTemplate.expire(key, Duration.ofDays(1));
-                   }
-                });
-            }
-            return reactiveRedisTemplate.opsForValue().get(key);
-        }).map(article -> ResponseEntity.ok(JsonResponse.success(article)));
+        Article article = articleMapper.findById(id);
+        if (article == null) {
+            article = new Article();
+        }
+        return Mono.justOrEmpty(ResponseEntity.ok(JsonResponse.success(article.toHtml())));
     }
 
 }
