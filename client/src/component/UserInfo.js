@@ -36,7 +36,7 @@ class UserInfo extends Component {
     };
 
     login = () => {
-        this.setState({registerVisible: true});
+        this.setState({loginVisible: true});
     };
 
     register = () => {
