@@ -13,5 +13,5 @@ function checkStatus(response) {
 }
 
 export const baseFetch = (url, data) => {
-    return fetch(url, data).then(checkStatus).then(json => json).catch(error => error);
+    return fetch(url, data).then(checkStatus).then(json => json).catch(error => error.body);
 };

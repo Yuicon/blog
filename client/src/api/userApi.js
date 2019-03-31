@@ -4,7 +4,7 @@ import {baseFetch} from "./base";
  * @author Yuicon
  */
 
-const userBaseUrl = "http://api.saabisu.cn/user-service";
+const userBaseUrl = "https://api.saabisu.cn/user-service";
 
 function login(email, password) {
     return baseFetch(userBaseUrl + `/public/login`, {

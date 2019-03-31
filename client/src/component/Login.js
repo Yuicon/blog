@@ -25,6 +25,7 @@ class Login extends Component {
 
     handleOk = async () => {
         const body = await userApi.login(this.state.email, this.state.password);
+        console.log(body)
         if (body.success) {
             this.props.handleOk(body.data);
         } else {

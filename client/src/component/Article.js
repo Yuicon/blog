@@ -28,21 +28,21 @@ class Article extends Component {
     async componentDidMount() {
         this.setState({spinning: true});
         const article = await blogApi.getArticleById(this.props.match.params.id);
-        this.setState({article, error: "<h1>没有文章哦！</h1>", spinning: false}, () => {
+        this.setState({article: article.data, error: "<h1>没有文章哦！</h1>", spinning: false}, () => {
             const gitalk = new Gitalk({
                 clientID: '1f4bdb550130e267946f',
                 clientSecret: '1b48fcde26285d26e4b71193bff6f1d809031a03',
-                repo: article.repositoryName,
-                owner: article.gitUserName,
-                admin: [article.gitUserName],
-                number: article.issueId,
-                id: article.id,      // Ensure uniqueness and length less than 50
+                repo: article.data.repositoryName,
+                owner: article.data.gitUserName,
+                admin: [article.data.gitUserName],
+                number: article.data.issueId,
+                id: article.data.id,      // Ensure uniqueness and length less than 50
                 distractionFreeMode: true  // Facebook-like distraction free mode
             });
 
             gitalk.render('gitalk-container');
             hljs.initHighlighting();
-            window._hmt.push(['_trackPageview', `/articles/${article.id}`]);
+            window._hmt.push(['_trackPageview', `/articles/${article.data.id}`]);
         });
     }
 
