@@ -4,14 +4,14 @@
 
 import {baseFetch} from "./base";
 
-const blogBaseUrl = "https://blog.penglei.wang";
+const blogBaseUrl = "http://api.saabisu.cn/article-service";
 
 function getArticles(page = 0, size = 20) {
-    return baseFetch(blogBaseUrl + `/articles?page=${page}&size=${size}`);
+    return baseFetch(blogBaseUrl + `/public?page=${page}&size=${size}`);
 }
 
 function getArticleById(id) {
-    return baseFetch(blogBaseUrl + "/articles/" + id);
+    return baseFetch(blogBaseUrl + "/public/" + id);
 }
 
 function getArticle(gitUserName, repositoryName, issueId) {
