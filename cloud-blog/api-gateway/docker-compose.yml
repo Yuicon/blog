@@ -1,7 +1,0 @@
-version: '2'
-services:
-  web:
-    image: registry.cn-hangzhou.aliyuncs.com/yuicon/api-gateway:1.0.1-SNAPSHOT
-    ports:
-    - "15555:15555"
-
