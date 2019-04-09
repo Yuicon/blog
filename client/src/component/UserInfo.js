@@ -5,6 +5,7 @@ import React, {Component} from "react";
 import Login from "./Login";
 import {Button} from 'antd';
 import Register from "./Register";
+import {withRouter} from "react-router-dom";
 
 class UserInfo extends Component {
 
@@ -45,6 +46,10 @@ class UserInfo extends Component {
         this.setState({username: localStorage.getItem("username")});
     };
 
+    upload = () => {
+        this.props.history.push("/article/new");
+    };
+
     register = () => {
         this.setState({registerVisible: true});
     };
@@ -56,7 +61,7 @@ class UserInfo extends Component {
                        handleCancel={this.handleOnLoginCancel}/>
                 <Register visible={this.state.registerVisible} handleOk={this.handleOnRegisterOk}
                        handleCancel={this.handleOnRegisterCancel}/>
-                <h3>{this.state.username ? <div>{this.state.username}&nbsp;<Button onClick={this.logout} type="danger">退出</Button></div> :
+                <h3>{this.state.username ? <div>{this.state.username}&nbsp;<Button onClick={this.upload} type="primary">投稿</Button>&nbsp;<Button onClick={this.logout} type="danger">退出</Button></div> :
                     <div><Button onClick={this.login} type="primary">登录</Button>&nbsp;<Button onClick={this.register}>注册</Button>
                     </div>}</h3>
             </div>
@@ -64,4 +69,4 @@ class UserInfo extends Component {
     }
 }
 
-export default UserInfo;
+export default withRouter(UserInfo);

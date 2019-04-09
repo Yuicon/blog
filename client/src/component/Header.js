@@ -7,7 +7,6 @@ import UserInfo from "./UserInfo";
 class Header extends Component {
 
     render() {
-
         return (
             <header className="App-header">
                 <div>
