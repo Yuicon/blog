@@ -8,8 +8,8 @@ import Register from "./Register";
 
 class UserInfo extends Component {
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             username: localStorage.getItem("username"),
             loginVisible: false,
@@ -39,6 +39,12 @@ class UserInfo extends Component {
         this.setState({loginVisible: true});
     };
 
+    logout = () => {
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("username");
+        this.setState({username: localStorage.getItem("username")});
+    };
+
     register = () => {
         this.setState({registerVisible: true});
     };
@@ -50,7 +56,7 @@ class UserInfo extends Component {
                        handleCancel={this.handleOnLoginCancel}/>
                 <Register visible={this.state.registerVisible} handleOk={this.handleOnRegisterOk}
                        handleCancel={this.handleOnRegisterCancel}/>
-                <h3>{this.state.username ? this.state.username :
+                <h3>{this.state.username ? <div>{this.state.username}&nbsp;<Button onClick={this.logout} type="danger">退出</Button></div> :
                     <div><Button onClick={this.login} type="primary">登录</Button>&nbsp;<Button onClick={this.register}>注册</Button>
                     </div>}</h3>
             </div>
