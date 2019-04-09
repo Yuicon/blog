@@ -2,42 +2,28 @@
  * @author Yuicon
  */
 
-import {baseFetch} from "./base";
+import {http} from "./base";
 
 const blogBaseUrl = "https://api.saabisu.cn/article-service";
 
 function getArticles(page = 0, size = 20) {
-    return baseFetch(blogBaseUrl + `/public?page=${page}&size=${size}`);
+    return http.get(blogBaseUrl + `/public?page=${page}&size=${size}`);
 }
 
 function getArticleById(id) {
-    return baseFetch(blogBaseUrl + "/public/" + id);
+    return http.get(blogBaseUrl + "/public/" + id);
 }
 
 function getArticle(gitUserName, repositoryName, issueId) {
-    return baseFetch(`https://api.github.com/repos/${gitUserName}/${repositoryName}/issues/${issueId}`);
+    return http.get(`https://api.github.com/repos/${gitUserName}/${repositoryName}/issues/${issueId}`);
 }
 
 function addArticle(gitUserName, repositoryName, issueId) {
-    return baseFetch(blogBaseUrl + `/articles`, {
-        body: JSON.stringify({gitUserName, repositoryName, issueId}), // must match 'Content-Type' header
-        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-        headers: {
-            'content-type': 'application/json'
-        },
-        method: 'POST', // *GET, POST, PUT, DELETE, etc.
-    });
+    return http.post(blogBaseUrl + `/articles`, {gitUserName, repositoryName, issueId});
 }
 
 function putArticle(id, title, body, createdAt, updatedAt, closedAt) {
-    return baseFetch(blogBaseUrl + `/articles`, {
-        body: JSON.stringify({id, title, body, createdAt, updatedAt, closedAt}), // must match 'Content-Type' header
-        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-        headers: {
-            'content-type': 'application/json'
-        },
-        method: 'PUT', // *GET, POST, PUT, DELETE, etc.
-    });
+    return http.post(blogBaseUrl + `/articles`, {id, title, body, createdAt, updatedAt, closedAt});
 }
 
 export const blogApi = {};

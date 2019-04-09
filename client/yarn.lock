@@ -2033,12 +2033,6 @@ currently-unhandled@^0.4.1:
   dependencies:
     array-find-index "^1.0.1"
 
-customize-cra@^0.2.12:
-  version "0.2.12"
-  resolved "http://registry.npm.taobao.org/customize-cra/download/customize-cra-0.2.12.tgz#ffc9b6378cbdffbe29ad02c479ae5d7a502aca69"
-  dependencies:
-    lodash.flow "^3.5.0"
-
 d@1:
   version "1.0.0"
   resolved "http://registry.npm.taobao.org/d/download/d-1.0.0.tgz#754bb5bfe55451da69a58b94d45f4c5b0462d58f"
@@ -4554,10 +4548,6 @@ lodash.debounce@^4.0.0, lodash.debounce@^4.0.8:
 lodash.defaults@^4.2.0:
   version "4.2.0"
   resolved "http://registry.npm.taobao.org/lodash.defaults/download/lodash.defaults-4.2.0.tgz#d09178716ffea4dde9e5fb7b37f6f0802274580c"
-
-lodash.flow@^3.5.0:
-  version "3.5.0"
-  resolved "http://registry.npm.taobao.org/lodash.flow/download/lodash.flow-3.5.0.tgz#87bf40292b8cf83e4e8ce1a3ae4209e20071675a"
 
 lodash.isarguments@^3.0.0:
   version "3.1.0"

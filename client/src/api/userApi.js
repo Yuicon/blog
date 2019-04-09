@@ -1,4 +1,4 @@
-import {baseFetch} from "./base";
+import {http} from "./base";
 
 /**
  * @author Yuicon
@@ -6,37 +6,16 @@ import {baseFetch} from "./base";
 
 const userBaseUrl = "https://api.saabisu.cn/user-service";
 
-function login(email, password) {
-    return baseFetch(userBaseUrl + `/public/login`, {
-        body: JSON.stringify({email, password}), // must match 'Content-Type' header
-        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-        headers: {
-            'content-type': 'application/json'
-        },
-        method: 'POST', // *GET, POST, PUT, DELETE, etc.
-    });
+async function login(email, password) {
+    return http.post(userBaseUrl + `/public/login`, {email, password});
 }
 
 function register(email, username, password) {
-    return baseFetch(userBaseUrl + `/public/register`, {
-        body: JSON.stringify({email, username, password}), // must match 'Content-Type' header
-        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-        headers: {
-            'content-type': 'application/json'
-        },
-        method: 'POST', // *GET, POST, PUT, DELETE, etc.
-    });
+    return http.post(userBaseUrl + `/public/register`, {email, username, password});
 }
 
 function activate(email, code) {
-    return baseFetch(userBaseUrl + `/public/activate`, {
-        body: JSON.stringify({email, code}), // must match 'Content-Type' header
-        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-        headers: {
-            'content-type': 'application/json'
-        },
-        method: 'POST', // *GET, POST, PUT, DELETE, etc.
-    });
+    return http.post(userBaseUrl + `/public/activate`, {email, code});
 }
 
 export const userApi = {};
