@@ -7,6 +7,7 @@ import {Button} from 'antd';
 import Register from "./Register";
 import {withRouter} from "react-router-dom";
 import {Menu} from 'antd';
+import {TOKEN_KEY} from "../constant";
 
 const SubMenu = Menu.SubMenu;
 
@@ -20,8 +21,13 @@ class UserInfo extends Component {
             registerVisible: false,
         };
         this.menuMap = {
-            "upload": this.upload,
-            "logout": this.logout,
+            "upload": () => this.props.history.push("/article/new"),
+            "logout": () => {
+                localStorage.removeItem(TOKEN_KEY);
+                localStorage.removeItem("username");
+                this.setState({username: localStorage.getItem("username")});
+                },
+            "record": () => this.props.history.push("/record"),
         }
     }
 
@@ -47,16 +53,6 @@ class UserInfo extends Component {
         this.setState({loginVisible: true});
     };
 
-    logout = () => {
-        localStorage.removeItem("accessToken");
-        localStorage.removeItem("username");
-        this.setState({username: localStorage.getItem("username")});
-    };
-
-    upload = () => {
-        this.props.history.push("/article/new");
-    };
-
     register = () => {
         this.setState({registerVisible: true});
     };
@@ -79,6 +75,7 @@ class UserInfo extends Component {
                         <Menu onClick={this.handleClick} style={{width: 100}} mode="vertical">
                             <SubMenu key="other" title={<span><span>其他</span></span>}>
                                 <Menu.Item key="upload">投稿</Menu.Item>
+                                <Menu.Item key="record">记录</Menu.Item>
                                 <Menu.Item key="logout">退出</Menu.Item>
                             </SubMenu>
                         </Menu>

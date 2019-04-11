@@ -6,7 +6,7 @@ import {http} from "./base";
 
 const userBaseUrl = "https://api.saabisu.cn/user-service";
 
-async function login(email, password) {
+function login(email, password) {
     return http.post(userBaseUrl + `/public/login`, {email, password});
 }
 

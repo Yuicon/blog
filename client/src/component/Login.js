@@ -7,8 +7,8 @@ import {userApi} from "../api/userApi";
 
 class Login extends Component {
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             email: null,
             password: null

@@ -2,6 +2,8 @@
  * @author Yuicon
  */
 
+import {TOKEN_KEY} from "../constant";
+
 function checkStatus(response) {
     if (response.ok) {
         return response.json()
@@ -22,7 +24,14 @@ const baseFetch = async (url, data) => {
 };
 
 const get = (url) => {
-    return baseFetch(url);
+    return baseFetch(url, {
+        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+        headers: {
+            'content-type': 'application/json',
+            'token': localStorage.getItem(TOKEN_KEY),
+        },
+        method: 'GET', // *GET, POST, PUT, DELETE, etc.
+    });
 };
 
 const post = (url, body) => {
@@ -31,7 +40,7 @@ const post = (url, body) => {
         cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
         headers: {
             'content-type': 'application/json',
-            'token': localStorage.getItem("accessToken"),
+            'token': localStorage.getItem(TOKEN_KEY),
         },
         method: 'POST', // *GET, POST, PUT, DELETE, etc.
     });
