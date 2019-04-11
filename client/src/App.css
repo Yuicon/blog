@@ -17,10 +17,12 @@ body {
     border-bottom: 1px solid #ececec;
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 
 .App-header .username {
-
+    display: flex;
+    align-items: center;
 }
 
 .App-title {

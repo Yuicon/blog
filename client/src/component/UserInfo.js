@@ -6,6 +6,9 @@ import Login from "./Login";
 import {Button} from 'antd';
 import Register from "./Register";
 import {withRouter} from "react-router-dom";
+import {Menu} from 'antd';
+
+const SubMenu = Menu.SubMenu;
 
 class UserInfo extends Component {
 
@@ -16,6 +19,10 @@ class UserInfo extends Component {
             loginVisible: false,
             registerVisible: false,
         };
+        this.menuMap = {
+            "upload": this.upload,
+            "logout": this.logout,
+        }
     }
 
     handleOnLoginOk = (userData) => {
@@ -54,15 +61,31 @@ class UserInfo extends Component {
         this.setState({registerVisible: true});
     };
 
+    handleClick = (e) => {
+        const func = this.menuMap[e.key];
+        func();
+        console.log('click', e);
+    };
+
     render() {
         return (
-            <div className="username">
+            <div>
                 <Login visible={this.state.loginVisible} handleOk={this.handleOnLoginOk}
                        handleCancel={this.handleOnLoginCancel}/>
                 <Register visible={this.state.registerVisible} handleOk={this.handleOnRegisterOk}
-                       handleCancel={this.handleOnRegisterCancel}/>
-                <h3>{this.state.username ? <div>{this.state.username}&nbsp;<Button onClick={this.upload} type="primary">投稿</Button>&nbsp;<Button onClick={this.logout} type="danger">退出</Button></div> :
-                    <div><Button onClick={this.login} type="primary">登录</Button>&nbsp;<Button onClick={this.register}>注册</Button>
+                          handleCancel={this.handleOnRegisterCancel}/>
+                <h3>{this.state.username ?
+                    <div className="username">{this.state.username}&nbsp;
+                        <Menu onClick={this.handleClick} style={{width: 100}} mode="vertical">
+                            <SubMenu key="other" title={<span><span>其他</span></span>}>
+                                <Menu.Item key="upload">投稿</Menu.Item>
+                                <Menu.Item key="logout">退出</Menu.Item>
+                            </SubMenu>
+                        </Menu>
+                    </div>
+                    :
+                    <div><Button onClick={this.login} type="primary">登录</Button>&nbsp;<Button
+                        onClick={this.register}>注册</Button>
                     </div>}</h3>
             </div>
         );
