@@ -6,6 +6,10 @@ body {
     text-align: center;
 }
 
+.App .content {
+    min-height: 74vh;
+}
+
 .App-logo {
     animation: App-logo-spin infinite 20s linear;
     height: 80px;
