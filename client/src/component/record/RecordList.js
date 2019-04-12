@@ -2,12 +2,15 @@
  * @author Yuicon
  */
 import React, {Component} from "react";
-import {Button, message, PageHeader, Statistic, Tag, Row, Col} from "antd";
+import {Button, message, PageHeader, Tag, Menu} from "antd";
 import {TOKEN_KEY} from "../../constant";
 import {recordApi} from "../../api/recordApi";
 import RecordForm from "./RecordForm";
+import "./Record.css";
 
-class Record extends Component {
+const SubMenu = Menu.SubMenu;
+
+class RecordList extends Component {
 
     constructor(props) {
         super(props);
@@ -49,7 +52,27 @@ class Record extends Component {
         this.setState({formVisible: true});
     };
 
+    handleClick = (e) => {
+        console.log('click', e);
+    };
+
     render() {
+
+        const groups = {};
+
+        this.state.records.forEach(record => {
+            if (!groups[record.group]) {
+                groups[record.group] = [];
+            }
+            groups[record.group].push(record);
+        });
+
+        const menus = Object.keys(groups).map(group => {
+            return <SubMenu key={group} title={<span>{group}</span>}>
+                {groups[group].map(record => <Menu.Item key={record.id}>{record.source}</Menu.Item>)}
+            </SubMenu>;
+        });
+
         return (
             <div>
                 <RecordForm visible={this.state.formVisible} handleOk={this.handleOnInsertOk}
@@ -66,12 +89,18 @@ class Record extends Component {
                     ]}
                 >
                 </PageHeader>
-                <div>
-                    {this.state.records.map(record => <div key={record.id}><h3>{record.source}</h3></div>)}
+                <div className="record-list">
+                    <Menu
+                        onClick={this.handleClick}
+                        mode="inline"
+                        style={{ width: 256 }}
+                    >
+                        {menus}
+                    </Menu>
                 </div>
             </div>
         );
     }
 }
 
-export default Record;
+export default RecordList;

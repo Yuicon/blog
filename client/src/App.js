@@ -6,7 +6,7 @@ import Home from "./component/Home";
 import Article from "./component/Article";
 import Footer from "./component/Footer";
 import Header from "./component/Header";
-import Record from "./component/record/Record";
+import RecordList from "./component/record/RecordList";
 
 class App extends Component {
 
@@ -20,7 +20,7 @@ class App extends Component {
                         <Route exact path="/" component={Home}/>
                         <Route exact path="/article/new" component={New}/>
                         <Route exact path="/articles/:id" component={Article}/>
-                        <Route exact path="/record" component={Record}/>
+                        <Route exact path="/record" component={RecordList}/>
                     </div>
                     <Footer/>
                 </div>
