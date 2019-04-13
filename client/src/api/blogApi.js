@@ -2,7 +2,7 @@
  * @author Yuicon
  */
 
-import {http} from "./base";
+import {baseFetch, http} from "./base";
 
 const blogBaseUrl = "https://api.saabisu.cn/article-service";
 
@@ -15,7 +15,7 @@ function getArticleById(id) {
 }
 
 function getArticle(gitUserName, repositoryName, issueId) {
-    return http.get(`https://api.github.com/repos/${gitUserName}/${repositoryName}/issues/${issueId}`);
+    return baseFetch(`https://api.github.com/repos/${gitUserName}/${repositoryName}/issues/${issueId}`);
 }
 
 function addArticle(gitUserName, repositoryName, issueId) {
@@ -23,7 +23,7 @@ function addArticle(gitUserName, repositoryName, issueId) {
 }
 
 function putArticle(id, title, body, createdAt, updatedAt, closedAt) {
-    return http.post(blogBaseUrl + `/articles`, {id, title, body, createdAt, updatedAt, closedAt});
+    return http.put(blogBaseUrl + `/articles`, {id, title, body, createdAt, updatedAt, closedAt});
 }
 
 export const blogApi = {};
