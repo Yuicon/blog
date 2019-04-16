@@ -7,20 +7,24 @@ import {TOKEN_KEY} from "../constant";
 function checkStatus(response) {
     if (response.ok) {
         return response.json()
-    } else {
-        const error = new Error(response.statusText);
-        error.body = response.json();
-        throw error;
     }
+    const error = new Error(response.statusText);
+    if (response.status === 401) {
+        error.body = {success: false, message: "未登录或登录已过期", data: null};
+        localStorage.removeItem(TOKEN_KEY);
+    } else {
+        try {
+            error.body = response.json();
+        } catch (e) {
+            error.body = {success: false, message: "未知错误", data: null};
+        }
+    }
+    throw error;
 }
 
 
-export const baseFetch = async (url, data) => {
-    let body = await fetch(url, data).then(checkStatus).then(json => json).catch(error => error.body);
-    if (!body) {
-        body = {success: false, message: "未知错误", data: null};
-    }
-    return body;
+export const baseFetch = (url, data) => {
+    return fetch(url, data).then(checkStatus).then(json => json).catch(error => error.body);
 };
 
 const get = (url) => {
