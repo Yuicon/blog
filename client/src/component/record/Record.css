@@ -1,4 +1,16 @@
 .record-list {
     padding-left: 100px;
     padding-top: 20px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.item {
+    flex: 1;
+    margin: 10px;
+}
+
+.item button {
+    display: block;
+    margin-left: 5px;
 }

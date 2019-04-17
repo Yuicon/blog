@@ -2,11 +2,12 @@
  * @author Yuicon
  */
 import React, {Component} from "react";
-import {Button, message, PageHeader, Tag, Menu} from "antd";
+import {Button, message, PageHeader, Tag, Menu, Table} from "antd";
 import {TOKEN_KEY} from "../../constant";
 import {recordApi} from "../../api/recordApi";
 import RecordForm from "./RecordForm";
 import "./Record.css";
+import ItemForm from "./ItemForm";
 
 const SubMenu = Menu.SubMenu;
 
@@ -16,7 +17,11 @@ class RecordList extends Component {
         super(props);
         this.state = {
             records: [],
-            formVisible: false
+            items: [],
+            rid: null,
+            formVisible: false,
+            itemFormVisible: false,
+            record: {},
         };
     }
 
@@ -40,20 +45,38 @@ class RecordList extends Component {
         });
     };
 
+    itemList = async () => {
+        this.setState({spinning: true});
+        const body = await recordApi.items(this.state.rid);
+        body.success ? this.setState({items: body.data}) : message.error(body.message);
+        this.setState({
+            spinning: false
+        });
+    };
+
     handleOnInsertOk = () => {
         this.setState({formVisible: false}, this.list);
     };
 
+    handleOnItemInsertOk = () => {
+        this.setState({itemFormVisible: false}, this.itemList);
+    };
+
     handleOnInsertCancel = () => {
-        this.setState({formVisible: false});
+        this.setState({formVisible: false, itemFormVisible: false, record: {}});
     };
 
     onClick = () => {
         this.setState({formVisible: true});
     };
 
-    handleClick = (e) => {
-        console.log('click', e);
+    handleClick = async (e) => {
+        const rid = e.key;
+        this.setState({rid: rid}, this.itemList);
+    };
+
+    handleItemClick = () => {
+        this.setState({itemFormVisible: true});
     };
 
     render() {
@@ -66,17 +89,32 @@ class RecordList extends Component {
             }
             groups[record.group].push(record);
         });
-
         const menus = Object.keys(groups).map(group => {
             return <SubMenu key={group} title={<span>{group}</span>}>
                 {groups[group].map(record => <Menu.Item key={record.id}>{record.source}</Menu.Item>)}
             </SubMenu>;
         });
 
+        const dataSource = this.state.items;
+
+        const columns = [{
+            title: '说明',
+            dataIndex: 'label',
+            key: 'label',
+        }, {
+            title: '数据',
+            dataIndex: 'value',
+            key: 'value',
+        }];
+
         return (
             <div>
                 <RecordForm visible={this.state.formVisible} handleOk={this.handleOnInsertOk}
                             handleCancel={this.handleOnInsertCancel}/>
+                <ItemForm visible={this.state.itemFormVisible} handleOk={this.handleOnItemInsertOk}
+                          handleCancel={this.handleOnInsertCancel} recordId={this.state.rid}
+                          record={this.state.record}
+                />
                 <PageHeader
                     onBack={() => window.history.back()}
                     title="记录"
@@ -84,7 +122,7 @@ class RecordList extends Component {
                     tags={<Tag color="blue">保密</Tag>}
                     extra={[
                         <Button key={1} onClick={this.onClick} type="primary">
-                            创建
+                            创建记录
                         </Button>,
                     ]}
                 >
@@ -93,10 +131,23 @@ class RecordList extends Component {
                     <Menu
                         onClick={this.handleClick}
                         mode="inline"
-                        style={{ width: 256 }}
+                        style={{width: 256}}
                     >
                         {menus}
                     </Menu>
+                    <div className="item">
+                        <Table dataSource={dataSource} columns={columns} pagination={{showSizeChanger: true, showTotal: total => `Total ${total}`}}
+                               rowKey={record => record.id}
+                               title={() => this.state.rid && <Button onClick={this.handleItemClick} type="primary">创建条目</Button>}
+                               onRow={(record) => {
+                                   return {
+                                       onClick: (event) => {
+                                           this.setState({record: record}, this.handleItemClick);
+                                       },       // 点击行
+                                   };
+                               }}
+                        />
+                    </div>
                 </div>
             </div>
         );

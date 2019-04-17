@@ -12,6 +12,8 @@ function checkStatus(response) {
     if (response.status === 401) {
         error.body = {success: false, message: "未登录或登录已过期", data: null};
         localStorage.removeItem(TOKEN_KEY);
+        localStorage.removeItem("username");
+        window.location.reload();
     } else {
         try {
             error.body = response.json();
@@ -24,7 +26,12 @@ function checkStatus(response) {
 
 
 export const baseFetch = (url, data) => {
-    return fetch(url, data).then(checkStatus).then(json => json).catch(error => error.body);
+    return fetch(url, data).then(checkStatus).then(json => json).catch(error => {
+        if (error.body) {
+            return error.body;
+        }
+        return {success: false, message: "未知错误", data: null};
+    });
 };
 
 const get = (url) => {
