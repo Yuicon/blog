@@ -11,6 +11,7 @@ class RecordForm extends Component {
         super(props);
         this.state = {
             source: null,
+            group: null,
         };
     }
 
@@ -18,8 +19,12 @@ class RecordForm extends Component {
         this.setState({source: e.target.value})
     };
 
+    handleGroupChange = (e) => {
+        this.setState({group: e.target.value})
+    };
+
     handleOk = async () => {
-        const body = await recordApi.insert(this.state.source);
+        const body = await recordApi.insert(this.state.source, this.state.group);
         if (body.success) {
             this.props.handleOk(body.data);
         } else {
@@ -36,6 +41,7 @@ class RecordForm extends Component {
                    onOk={this.handleOk}
                    onCancel={this.props.handleCancel}>
                 <Input addonBefore="来源" onChange={this.handleChange} />
+                <Input addonBefore="分组" onChange={this.handleGroupChange} />
             </Modal>
         );
     }

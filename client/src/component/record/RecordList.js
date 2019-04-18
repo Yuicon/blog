@@ -21,7 +21,7 @@ class RecordList extends Component {
             rid: null,
             formVisible: false,
             itemFormVisible: false,
-            record: {},
+            item: {},
         };
     }
 
@@ -63,7 +63,7 @@ class RecordList extends Component {
     };
 
     handleOnInsertCancel = () => {
-        this.setState({formVisible: false, itemFormVisible: false, record: {}});
+        this.setState({formVisible: false, itemFormVisible: false, item: {}});
     };
 
     onClick = () => {
@@ -75,8 +75,19 @@ class RecordList extends Component {
         this.setState({rid: rid}, this.itemList);
     };
 
-    handleItemClick = () => {
-        this.setState({itemFormVisible: true});
+    handleItemClick = (item) => {
+        this.setState({itemFormVisible: true, item: item});
+    };
+
+    handleItemDeleteClick = async (item) => {
+        const body = await recordApi.updateItem(item.id, item.label, item.value,
+            item.sequence, item.kind, 1);
+        if (body.success) {
+            message.success("删除成功");
+            this.itemList();
+        } else {
+            message.error(body.message);
+        }
     };
 
     render() {
@@ -111,6 +122,16 @@ class RecordList extends Component {
                 }
                 return text;
             }
+        }, {
+            title: '操作',
+            dataIndex: 'state',
+            key: 'state',
+            render: (text, record, index) => {
+                return <div style={{display: "flex"}}>
+                    <Button size="small" onClick={this.handleItemClick.bind(this, record)} type="primary">修改</Button>
+                    <Button size="small" onClick={this.handleItemDeleteClick.bind(this, record)} type="primary">删除</Button>
+                </div>
+            }
         }];
 
         return (
@@ -119,7 +140,7 @@ class RecordList extends Component {
                             handleCancel={this.handleOnInsertCancel}/>
                 <ItemForm visible={this.state.itemFormVisible} handleOk={this.handleOnItemInsertOk}
                           handleCancel={this.handleOnInsertCancel} recordId={this.state.rid}
-                          record={this.state.record}
+                          record={this.state.item}
                 />
                 <PageHeader
                     onBack={() => window.history.back()}
@@ -145,13 +166,6 @@ class RecordList extends Component {
                         <Table dataSource={dataSource} columns={columns} pagination={{showSizeChanger: true, showTotal: total => `Total ${total}`}}
                                rowKey={record => record.id}
                                title={() => this.state.rid && <Button onClick={this.handleItemClick} type="primary">创建条目</Button>}
-                               onRow={(record) => {
-                                   return {
-                                       onClick: (event) => {
-                                           this.setState({record: record}, this.handleItemClick);
-                                       },       // 点击行
-                                   };
-                               }}
                         />
                     </div>
                 </div>

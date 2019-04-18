@@ -14,8 +14,8 @@ function items(rid) {
     return http.get(recordBaseUrl + `/items?recordId=${rid}`);
 }
 
-function insert(source) {
-    return http.post(recordBaseUrl + `/records`, {source});
+function insert(source, group) {
+    return http.post(recordBaseUrl + `/records`, {"source": source, "group": group});
 }
 
 function insertItem(recordId, label, value, sequence, kind) {
