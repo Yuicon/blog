@@ -105,6 +105,12 @@ class RecordList extends Component {
             title: '数据',
             dataIndex: 'value',
             key: 'value',
+            render: (text, record, index) => {
+                if (record.kind === 1) {
+                    return "******"
+                }
+                return text;
+            }
         }];
 
         return (
