@@ -22,7 +22,9 @@ class RecordList extends Component {
             formVisible: false,
             itemFormVisible: false,
             item: {},
+            openKeys: [],
         };
+        this.groups = [];
     }
 
     componentDidMount() {
@@ -35,8 +37,19 @@ class RecordList extends Component {
     list = async () => {
         this.setState({spinning: true});
         const body = await recordApi.list();
+        this.groups = [];
         if (body.success) {
-            this.setState({records: body.data}, () => console.log(this.state));
+            this.setState({records: body.data}, () => {
+                this.state.records.forEach((record, index) => {
+                    if (index === 0) {
+                        this.setState({openKeys: [record.group], rid: record.id}, () => this.itemList());
+                    }
+                    if (!this.groups[record.group]) {
+                        this.groups[record.group] = [];
+                    }
+                    this.groups[record.group].push(record);
+                });
+            });
         } else {
             message.error(body.message);
         }
@@ -92,17 +105,9 @@ class RecordList extends Component {
 
     render() {
 
-        const groups = {};
-
-        this.state.records.forEach(record => {
-            if (!groups[record.group]) {
-                groups[record.group] = [];
-            }
-            groups[record.group].push(record);
-        });
-        const menus = Object.keys(groups).map(group => {
+        const menus = Object.keys(this.groups).map((group, index) => {
             return <SubMenu key={group} title={<span>{group}</span>}>
-                {groups[group].map(record => <Menu.Item key={record.id}>{record.source}</Menu.Item>)}
+                {this.groups[group].map(record => <Menu.Item key={record.id}>{record.source}</Menu.Item>)}
             </SubMenu>;
         });
 
@@ -129,7 +134,8 @@ class RecordList extends Component {
             render: (text, record, index) => {
                 return <div style={{display: "flex"}}>
                     <Button size="small" onClick={this.handleItemClick.bind(this, record)} type="primary">修改</Button>
-                    <Button size="small" onClick={this.handleItemDeleteClick.bind(this, record)} type="primary">删除</Button>
+                    <Button size="small" onClick={this.handleItemDeleteClick.bind(this, record)}
+                            type="primary">删除</Button>
                 </div>
             }
         }];
@@ -159,14 +165,21 @@ class RecordList extends Component {
                         onClick={this.handleClick}
                         mode="inline"
                         style={{width: 256}}
+                        openKeys={this.state.openKeys}
+                        onOpenChange={openKeys => this.setState({openKeys: openKeys})}
                     >
                         {menus}
                     </Menu>
                     <div className="item">
                         <Table dataSource={dataSource} columns={columns}
-                               pagination={{showSizeChanger: true, showTotal: total => `Total ${total}`, defaultPageSize: 40}}
+                               pagination={{
+                                   showSizeChanger: true,
+                                   showTotal: total => `Total ${total}`,
+                                   defaultPageSize: 40
+                               }}
                                rowKey={record => record.id}
-                               title={() => this.state.rid && <Button onClick={this.handleItemClick} type="primary">创建条目</Button>}
+                               title={() => this.state.rid &&
+                                   <Button onClick={this.handleItemClick} type="primary">创建条目</Button>}
                         />
                     </div>
                 </div>
