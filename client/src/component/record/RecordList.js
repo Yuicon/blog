@@ -163,7 +163,8 @@ class RecordList extends Component {
                         {menus}
                     </Menu>
                     <div className="item">
-                        <Table dataSource={dataSource} columns={columns} pagination={{showSizeChanger: true, showTotal: total => `Total ${total}`}}
+                        <Table dataSource={dataSource} columns={columns}
+                               pagination={{showSizeChanger: true, showTotal: total => `Total ${total}`, defaultPageSize: 40}}
                                rowKey={record => record.id}
                                title={() => this.state.rid && <Button onClick={this.handleItemClick} type="primary">创建条目</Button>}
                         />
