@@ -7,12 +7,13 @@ import {userApi} from "../api/userApi";
 
 class Register extends Component {
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             email: null,
             password: null,
-            username: null
+            username: null,
+            phone: null
         };
     }
 
@@ -24,12 +25,16 @@ class Register extends Component {
         this.setState({username: e.target.value})
     };
 
+    handlePhone = (e) => {
+        this.setState({phone: e.target.value})
+    };
+
     handlePassword = (e) => {
         this.setState({password: e.target.value})
     };
 
     handleOk = async () => {
-        const body = await userApi.register(this.state.email, this.state.username, this.state.password);
+        const body = await userApi.register(this.state.email, this.state.username, this.state.password, this.state.phone);
         if (body.success) {
             this.props.handleOk(body.data);
         } else {
@@ -47,6 +52,7 @@ class Register extends Component {
                    onCancel={this.props.handleCancel}>
                 <Input addonBefore="邮箱" type="email" onChange={this.handleEmail} />
                 <Input addonBefore="昵称" onChange={this.handleUsername} />
+                <Input addonBefore="手机" onChange={this.handlePhone} />
                 <Input.Password addonBefore="密码" onChange={this.handlePassword}/>
             </Modal>
         );

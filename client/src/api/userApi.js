@@ -10,8 +10,8 @@ function login(email, password) {
     return http.post(userBaseUrl + `/public/login`, {email, password});
 }
 
-function register(email, username, password) {
-    return http.post(userBaseUrl + `/public/register`, {email, username, password});
+function register(email, username, password, phone) {
+    return http.post(userBaseUrl + `/public/register`, {email, username, password, phone});
 }
 
 function activate(email, code) {
