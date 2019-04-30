@@ -36,6 +36,7 @@ class Register extends Component {
     handleOk = async () => {
         const body = await userApi.register(this.state.email, this.state.username, this.state.password, this.state.phone);
         if (body.success) {
+            message.success(body.message);
             this.props.handleOk(body.data);
         } else {
             message.error(body.message);
