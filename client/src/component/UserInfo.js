@@ -3,33 +3,18 @@
  */
 import React, {Component} from "react";
 import Login from "./Login";
-import {Button} from 'antd';
+import {Button, Tabs} from 'antd';
 import Register from "./Register";
 import {withRouter} from "react-router-dom";
-import {Menu} from 'antd';
 import {TOKEN_KEY} from "../constant";
 
-const SubMenu = Menu.SubMenu;
+const {TabPane} = Tabs;
 
 class UserInfo extends Component {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            username: localStorage.getItem("username"),
-            loginVisible: false,
-            registerVisible: false,
-        };
-        this.menuMap = {
-            "upload": () => this.props.history.push("/article/new"),
-            "logout": () => {
-                localStorage.removeItem(TOKEN_KEY);
-                localStorage.removeItem("username");
-                this.setState({username: localStorage.getItem("username")});
-                },
-            "record": () => this.props.history.push("/record"),
-        }
-    }
+    handleClick = (e) => {
+
+    };
 
     handleOnLoginOk = (userData) => {
         localStorage.setItem("accessToken", userData.accessToken);
@@ -56,12 +41,30 @@ class UserInfo extends Component {
     register = () => {
         this.setState({registerVisible: true});
     };
-
-    handleClick = (e) => {
-        const func = this.menuMap[e.key];
+    callback = (key) => {
+        const func = this.menuMap[key];
         func();
-        console.log('click', e);
+        console.log('click', key);
     };
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            username: localStorage.getItem("username"),
+            loginVisible: false,
+            registerVisible: false,
+        };
+        this.menuMap = {
+            "upload": () => this.props.history.push("/article/new"),
+            "index": () => this.props.history.push("/"),
+            "logout": () => {
+                localStorage.removeItem(TOKEN_KEY);
+                localStorage.removeItem("username");
+                this.setState({username: localStorage.getItem("username")});
+            },
+            "record": () => this.props.history.push("/record"),
+        }
+    }
 
     render() {
         return (
@@ -71,14 +74,18 @@ class UserInfo extends Component {
                 <Register visible={this.state.registerVisible} handleOk={this.handleOnRegisterOk}
                           handleCancel={this.handleOnRegisterCancel}/>
                 <h3>{this.state.username ?
-                    <div className="username">{this.state.username}&nbsp;
-                        <Menu onClick={this.handleClick} style={{width: 100}} mode="vertical">
-                            <SubMenu key="other" title={<span><span>其他</span></span>}>
-                                <Menu.Item key="upload">投稿</Menu.Item>
-                                <Menu.Item key="record">记录</Menu.Item>
-                                <Menu.Item key="logout">退出</Menu.Item>
-                            </SubMenu>
-                        </Menu>
+                    <div>
+                        <div>
+                            {this.state.username}
+                        </div>
+                        <div className="username">
+                            <Tabs onChange={this.callback} size="small">
+                                <TabPane tab="首页" key="index"/>
+                                <TabPane tab="投稿" key="upload"/>
+                                <TabPane tab="记录" key="record"/>
+                                <TabPane tab="退出" key="logout"/>
+                            </Tabs>
+                        </div>
                     </div>
                     :
                     <div><Button onClick={this.login} type="primary">登录</Button>&nbsp;<Button

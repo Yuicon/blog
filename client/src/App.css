@@ -24,9 +24,9 @@ body {
     align-items: center;
 }
 
-.App-header .username {
-    display: flex;
-    align-items: center;
+.App-header .username .ant-tabs-bar {
+    margin: 0 0 0 0;
+    border-bottom: 0 solid #e8e8e8;
 }
 
 .App-title {
