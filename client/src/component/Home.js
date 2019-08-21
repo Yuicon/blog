@@ -21,7 +21,7 @@ class Home extends Component {
         this.setState({spinning: true});
         const body = await blogApi.getArticles();
         this.setState({
-            articles: body.content,
+            articles: body.content || [],
             spinning: false
         });
     }
