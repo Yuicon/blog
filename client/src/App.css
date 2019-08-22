@@ -195,3 +195,9 @@ i, cite, em, var, address, dfn {
 .ion-android-arrow-dropup:before {
     content: "Top";
 }
+
+.contribute {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}

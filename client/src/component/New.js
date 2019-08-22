@@ -7,8 +7,8 @@ import {blogApi} from "../api/blogApi";
 
 class New extends Component {
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             gitUserName: "",
             repositoryName: "",

@@ -12,10 +12,6 @@ const {TabPane} = Tabs;
 
 class UserInfo extends Component {
 
-    handleClick = (e) => {
-
-    };
-
     handleOnLoginOk = (userData) => {
         localStorage.setItem("accessToken", userData.accessToken);
         localStorage.setItem("username", userData.username);
@@ -88,8 +84,8 @@ class UserInfo extends Component {
                         </div>
                     </div>
                     :
-                    <div><Button onClick={this.login} type="primary">登录</Button>&nbsp;<Button
-                        onClick={this.register}>注册</Button>
+                    <div><Button onClick={this.login} type="primary" htmlType="button">登录</Button>&nbsp;<Button
+                        onClick={this.register} htmlType="button">注册</Button>
                     </div>}</h3>
             </div>
         );
