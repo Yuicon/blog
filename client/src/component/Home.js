@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import {blogApi} from "../api/blogApi";
 import Entry from "./Entry";
-import { Spin } from 'antd';
+import {Spin} from 'antd';
 
 /**
  * @author Yuicon
@@ -9,8 +9,8 @@ import { Spin } from 'antd';
 
 class Home extends Component {
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             articles: [],
             spinning: false

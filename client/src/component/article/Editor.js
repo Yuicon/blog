@@ -4,9 +4,13 @@ import 'braft-editor/dist/index.css'
 
 export default class Editor extends React.Component {
 
-    state = {
-        editorState: null
-    };
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            editorState: null,
+        };
+    }
 
     submitContent = async () => {
         // 在编辑器获得焦点时按下ctrl+s会执行此方法
