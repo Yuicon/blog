@@ -201,3 +201,10 @@ i, cite, em, var, address, dfn {
     align-items: center;
     flex-direction: column;
 }
+
+.article-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 30px;
+}
