@@ -4,7 +4,7 @@
 
 import {baseFetch, http} from "./base";
 
-const blogBaseUrl = "https://api.saabisu.cn/article-service";
+const blogBaseUrl = "https://api.saabisu.cn/article-service/issue";
 
 function getArticles(page = 0, size = 20) {
     return http.get(blogBaseUrl + `/public?page=${page}&size=${size}`);

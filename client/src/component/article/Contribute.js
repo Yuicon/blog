@@ -14,6 +14,8 @@ class Contribute extends Component {
             title: '',
             content: '',
             introduction: "",
+            source: "self",
+            articleType: 1
         };
     }
 
