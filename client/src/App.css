@@ -146,12 +146,16 @@ body {
 }
 
 .friend-link {
-
+    color: rgba(255, 255, 255, 0.7);
+    display: flex;
+    justify-content: center;
+    padding: 20px;
 }
 
 .friend-link a {
     text-decoration: none;
-    color: #058deb;
+    color: #969696c7;
+    padding-left: 10px;
 }
 
 .comment-content {

@@ -10,7 +10,7 @@ class Footer extends Component {
         return (
             <div className="footer">
                 <div className="friend-link">
-                    <p>友情链接</p>
+                    <p>友情链接：</p>
                     <a target="_blank" href="http://jiangqz.xyz/">jiangqz</a>
                 </div>
                 <div className="license">
