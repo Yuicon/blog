@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {blogApi} from "../api/blogApi";
+import {commonArticleApi} from "../api/blogApi";
 import Entry from "./Entry";
 import {Spin} from 'antd';
 
@@ -19,9 +19,9 @@ class Home extends Component {
 
     async componentDidMount() {
         this.setState({spinning: true});
-        const body = await blogApi.getArticles();
+        const body = await commonArticleApi.findAll();
         this.setState({
-            articles: body.content || [],
+            articles: body.data.records || [],
             spinning: false
         });
     }

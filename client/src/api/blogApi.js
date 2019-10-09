@@ -33,3 +33,13 @@ blogApi.addArticle = addArticle;
 blogApi.putArticle = putArticle;
 blogApi.getArticle = getArticle;
 blogApi.getArticleById = getArticleById;
+
+const baseUrl = "https://api.saabisu.cn/article-service/common";
+
+export const commonArticleApi = {
+
+    findAll: (current = 1, size = 10) => {
+        return http.get(`${baseUrl}/public?current=${current}&size=${size}`);
+    },
+
+};
