@@ -13,7 +13,7 @@ class Entry extends Component {
                 <div>
                     <a className="article-title"
                        target="_blank"
-                       href={`/articles/${this.props.article.id}`}>
+                       href={`/v2/articles/${this.props.article.id}`}>
                         <p>{this.props.article.title}</p>
                     </a>
                 </div>
