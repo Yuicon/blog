@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import {message, Spin} from 'antd';
-import {articleApi} from "../../api/articleAPi";
+import {articleApi} from "../../api/articleApi";
 import BraftArticle from "./BraftArticle";
 import V2exArticle from "./V2exArticle";
 import MarkDownArticle from "./MarkDownArticle";

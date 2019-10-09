@@ -4,7 +4,7 @@
 
 import {http} from "./base";
 
-const articleBaseUrl = "https://api.saabisu.cn/article-service/commonArticle";
+const articleBaseUrl = "https://api.saabisu.cn/article-service/common";
 
 function getArticles(page = 0, size = 20) {
     return http.get(articleBaseUrl + `/public?page=${page}&size=${size}`);

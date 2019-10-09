@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import {Button, Input, message} from 'antd';
 import Editor from "./Editor";
-import {articleApi} from "../../api/articleAPi";
+import {articleApi} from "../../api/articleApi";
 
 /**
  * @author Yuicon

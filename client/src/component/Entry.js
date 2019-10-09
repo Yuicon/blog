@@ -18,7 +18,7 @@ class Entry extends Component {
                     </a>
                 </div>
                 <div className="details">
-                    <span>创建于：{this.props.article.createTime} · </span>
+                    <span>创建于：{this.props.article.createTime}</span>
                 </div>
             </div>
         );
