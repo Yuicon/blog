@@ -4,6 +4,7 @@ import {articleApi} from "../../api/articleApi";
 import BraftArticle from "./BraftArticle";
 import V2exArticle from "./V2exArticle";
 import MarkDownArticle from "./MarkDownArticle";
+import CommentBase from "./CommentBase";
 
 /**
  * @author Yuicon
@@ -17,6 +18,7 @@ export default class Article extends Component {
             article: {},
             error: "",
             spinning: false,
+            loadingComment: false
         };
     }
 
@@ -27,12 +29,11 @@ export default class Article extends Component {
     async componentDidMount() {
         this.setState({spinning: true});
         const body = await articleApi.getArticleById(this.props.match.params.id);
-        console.log(body);
         if (!body.success) {
             message.error(body.message);
             return;
         }
-        this.setState({article: body.data, spinning: false});
+        this.setState({article: body.data, spinning: false, loadingComment: true});
         window._hmt.push(['_trackPageview', `/articles/${body.data.id}`]);
     }
 
@@ -62,6 +63,9 @@ export default class Article extends Component {
                     <button title="回到顶部" className="btn to-top-btn" onClick={this.backTop}>
                         <i className="ion-android-arrow-dropup"/>
                     </button>
+                </div>
+                <div style={{width: "60%"}}>
+                    {this.state.loadingComment && <CommentBase articleId={this.state.article.id}/>}
                 </div>
             </div>
         );

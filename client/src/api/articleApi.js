@@ -28,3 +28,17 @@ articleApi.getArticles = getArticles;
 articleApi.addArticle = addArticle;
 articleApi.putArticle = putArticle;
 articleApi.getArticleById = getArticleById;
+
+const baseUrl = "https://api.saabisu.cn/article-service/comment";
+
+export const commentApi = {
+
+    findAll: (aid, current = 1, size = 100) => {
+        return http.get(`${baseUrl}/public?current=${current}&size=${size}&articleId=${aid}`);
+    },
+
+    save: (comment) => {
+        return http.post(`${baseUrl}`, comment);
+    }
+
+};
