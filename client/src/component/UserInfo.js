@@ -45,10 +45,22 @@ class UserInfo extends Component {
 
     constructor(props) {
         super(props);
+        let defaultActiveKey;
+        switch (window.location.pathname) {
+            case "/record":
+                defaultActiveKey = "record";
+                break;
+            case "/article/new":
+                defaultActiveKey = "upload";
+                break;
+            default:
+                defaultActiveKey = 'index';
+        }
         this.state = {
             username: localStorage.getItem("username"),
             loginVisible: false,
             registerVisible: false,
+            defaultActiveKey: defaultActiveKey
         };
         this.menuMap = {
             "upload": () => this.props.history.push("/article/new"),
@@ -75,7 +87,7 @@ class UserInfo extends Component {
                             {this.state.username}
                         </div>
                         <div className="username">
-                            <Tabs onChange={this.callback} size="small">
+                            <Tabs onChange={this.callback} size="small" defaultActiveKey={this.state.defaultActiveKey}>
                                 <TabPane tab="首页" key="index"/>
                                 <TabPane tab="投稿" key="upload"/>
                                 <TabPane tab="记录" key="record"/>
