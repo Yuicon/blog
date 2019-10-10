@@ -22,7 +22,7 @@ class Contribute extends Component {
     }
 
     save = async () => {
-        if (this.state.title.length < 5 || this.state.title.length > 16) {
+        if (this.state.title.length < 5 || this.state.title.length > 26) {
             message.warn("标题过短或过长!");
             return;
         }
@@ -37,11 +37,11 @@ class Contribute extends Component {
         });
         if (body.success) {
             message.success("投稿成功");
-            window.location.reload();
         } else {
             message.error(body.message);
         }
         this.setState({disabled: false});
+        window.location.reload();
     };
 
     render() {

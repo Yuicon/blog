@@ -18,7 +18,8 @@ class Entry extends Component {
                     </a>
                 </div>
                 <div className="details">
-                    <span>创建于：{this.props.article.createTime}</span>
+                    <span>创建于：{this.props.article.createTime} / </span>
+                    <span>作者：{this.props.article.author}</span>
                 </div>
             </div>
         );
