@@ -22,7 +22,7 @@ export default class CommentBase extends React.Component {
         this.getComments();
     }
 
-    getComments = async (current = 1, size = 100) => {
+    getComments = async (e, current = 1, size = 100) => {
         const body = await commentApi.findAll(this.props.articleId, current, size);
         if (!body.success) {
             message.error(body.message);
@@ -32,7 +32,7 @@ export default class CommentBase extends React.Component {
     };
 
     sentComment = async (e, quoteId) => {
-        if (this.state.content.length < 10) {
+        if (this.state.content.length < 140) {
             message.warn("字数不足!");
             return;
         }
@@ -55,8 +55,9 @@ export default class CommentBase extends React.Component {
 
         return (
             <div>
-                <Collapse defaultActiveKey={['1']}>
-                    <Panel header="评论" key="1">
+                <Collapse defaultActiveKey={['1']} bordered={false} destroyInactivePanel={true}>
+                    <Panel header="评论列表" key="1" showArrow={false}
+                           extra={<Button type="primary" onClick={this.getComments} htmlType="button">刷新评论</Button>}>
                         {
                             this.state.comments.length > 0 && <div style={{border: '1px solid gainsboro'}}>
                                 {
@@ -64,6 +65,7 @@ export default class CommentBase extends React.Component {
                                         const editorState = BraftEditor.createEditorState(comment.content);
                                         const content = editorState.toHTML();
                                         return <Comment
+                                            key={comment.id}
                                             author={<a>{comment.accountName}</a>}
                                             content={<article dangerouslySetInnerHTML={{__html: content}}
                                                               style={{textAlign: 'left'}}/>}
@@ -78,15 +80,12 @@ export default class CommentBase extends React.Component {
                             </div>
                         }
                     </Panel>
-                    <Panel header="发表评论" key="2">
+                    <Panel header="发表评论" key="2" showArrow={false}
+                           extra={<Button type="primary" onClick={this.sentComment} htmlType="button">发送评论</Button>}>
                         <div style={{
-                            width: '900px',
                             backgroundColor: "#e2e2e261"
                         }}>
                             <Editor onChange={html => this.setState({content: html})}/>
-                        </div>
-                        <div>
-                            <Button type="primary" onClick={this.sentComment} htmlType="button">发送评论</Button>
                         </div>
                     </Panel>
                 </Collapse>
