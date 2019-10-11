@@ -1,6 +1,6 @@
 import React from 'react';
 import Editor from "./Editor";
-import {Button, Collapse, Comment, message, Tooltip} from "antd";
+import {Button, Collapse, Comment, message, Modal, Tooltip} from "antd";
 import {commentApi} from "../../api/articleApi";
 import BraftEditor from 'braft-editor'
 import moment from "moment";
@@ -15,6 +15,8 @@ export default class CommentBase extends React.Component {
         this.state = {
             content: '',
             comments: [],
+            visible: false,
+            quoteId: 0
         };
     }
 
@@ -31,15 +33,20 @@ export default class CommentBase extends React.Component {
         this.setState({comments: body.data.records});
     };
 
-    sentComment = async (e, quoteId) => {
+    sentComment = async () => {
         if (this.state.content.length < 140) {
             message.warn("字数不足!");
+            return;
+        }
+
+        if (this.state.content.length > 1400) {
+            message.warn("字数过多!");
             return;
         }
         const body = await commentApi.save({
             content: this.state.content,
             articleId: this.props.articleId,
-            quoteId: quoteId,
+            quoteId: this.state.quoteId,
             state: 10
         });
         if (body.success && body.data) {
@@ -49,6 +56,11 @@ export default class CommentBase extends React.Component {
         } else {
             message.error(body.message);
         }
+        this.setState({visible: false});
+    };
+
+    replyHandle = (comment) => {
+        this.setState({quoteId: comment.id, visible: true});
     };
 
     render() {
@@ -65,6 +77,9 @@ export default class CommentBase extends React.Component {
                                         const editorState = BraftEditor.createEditorState(comment.content);
                                         const content = editorState.toHTML();
                                         return <Comment
+                                            style={{border: '1px solid #fff4f4b5'}}
+                                            actions={[<span key="comment-nested-reply-to"
+                                                            onClick={this.replyHandle.bind(this, comment)}>回复</span>]}
                                             key={comment.id}
                                             author={<a>{comment.accountName}</a>}
                                             content={<article dangerouslySetInnerHTML={{__html: content}}
@@ -89,6 +104,14 @@ export default class CommentBase extends React.Component {
                         </div>
                     </Panel>
                 </Collapse>
+                <Modal
+                    title="回复"
+                    visible={this.state.visible}
+                    onOk={this.sentComment}
+                    onCancel={() => this.setState({visible: false, quoteId: 0})}
+                >
+                    <Editor onChange={html => this.setState({content: html})}/>
+                </Modal>
             </div>
         )
 
