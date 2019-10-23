@@ -12,6 +12,7 @@ class Footer extends Component {
                 <div className="friend-link">
                     <p>友情链接：</p>
                     {/*<a target="_blank" href="http://jiangqz.xyz/">jiangqz</a>*/}
+                    <a target="_blank" href="https://www.debuginn.cn/">Debug客栈</a>
                 </div>
                 <div className="license">
                     ©2019 Yuicon
