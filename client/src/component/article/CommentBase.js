@@ -1,11 +1,9 @@
 import React from 'react';
 import Editor from "./Editor";
-import {Button, Collapse, Comment, message, Modal, Tooltip} from "antd";
+import {Button, Card, Comment, message, Modal, Tooltip} from "antd";
 import {commentApi} from "../../api/articleApi";
 import BraftEditor from "braft-editor";
 import moment from "moment";
-
-const {Panel} = Collapse;
 
 export default class CommentBase extends React.Component {
 
@@ -80,53 +78,54 @@ export default class CommentBase extends React.Component {
 
         return (
             <div>
-                <Collapse defaultActiveKey={['1']} bordered={false} destroyInactivePanel={true}>
-                    <Panel header="评论列表" key="1" showArrow={false}
-                           extra={<Button type="primary" onClick={this.getComments} htmlType="button">刷新评论</Button>}>
-                        {
-                            this.state.comments.length > 0 && <div style={{border: '1px solid gainsboro'}}>
-                                {
-                                    this.state.comments.map((commentList, i) => {
-                                        return <div key={i} style={{padding: "30px"}}>
-                                            {
-                                                commentList.map((comment, index) => {
-                                                    const editorState = BraftEditor.createEditorState(comment.content);
-                                                    const content = editorState.toHTML();
-                                                    const style = {border: '1px solid #fff4f4b5', textAlign: "left"};
-                                                    if (index !== (commentList.length - 1)) {
-                                                        style.backgroundColor = "#fff8dc82";
+                <Card bordered={false}
+                      extra={<Button type="primary" onClick={this.sentComment} htmlType="button">发送评论</Button>}>
+                    <div style={{
+                        backgroundColor: "#e2e2e261",
+                        height: "200px"
+                    }}>
+                        <Editor onChange={html => this.setState({content: html})}
+                                controls={['bold', 'italic', 'underline', 'strike-through', 'emoji', 'text-color']}
+                        />
+                    </div>
+                </Card>
+                <Card bordered={false}
+                      extra={<Button type="primary" onClick={this.getComments} htmlType="button">刷新评论</Button>}>
+                    {
+                        this.state.comments.length > 0 && <div>
+                            {
+                                this.state.comments.map((commentList, i) => {
+                                    return <div key={i} style={{padding: "30px"}}>
+                                        {
+                                            commentList.map((comment, index) => {
+                                                const editorState = BraftEditor.createEditorState(comment.content);
+                                                const content = editorState.toHTML();
+                                                const style = {border: '1px solid #fff4f4b5', textAlign: "left"};
+                                                if (index !== (commentList.length - 1)) {
+                                                    style.backgroundColor = "#fff8dc82";
+                                                }
+                                                return <Comment
+                                                    style={style}
+                                                    actions={[<span key="comment-nested-reply-to"
+                                                                    onClick={this.replyHandle.bind(this, comment)}>回复</span>]}
+                                                    key={comment.id}
+                                                    author={<a>{`${comment.floor}L - ${comment.accountName}`}</a>}
+                                                    content={<article dangerouslySetInnerHTML={{__html: content}}
+                                                                      style={{textAlign: 'left'}}/>}
+                                                    datetime={
+                                                        <Tooltip title={moment().format(comment.createTime)}>
+                                                            <span>{moment(comment.createTime).fromNow()}</span>
+                                                        </Tooltip>
                                                     }
-                                                    return <Comment
-                                                        style={style}
-                                                        actions={[<span key="comment-nested-reply-to"
-                                                                        onClick={this.replyHandle.bind(this, comment)}>回复</span>]}
-                                                        key={comment.id}
-                                                        author={<a>{`${comment.floor}L - ${comment.accountName}`}</a>}
-                                                        content={<article dangerouslySetInnerHTML={{__html: content}}
-                                                                          style={{textAlign: 'left'}}/>}
-                                                        datetime={
-                                                            <Tooltip title={moment().format(comment.createTime)}>
-                                                                <span>{moment(comment.createTime).fromNow()}</span>
-                                                            </Tooltip>
-                                                        }
-                                                    />;
-                                                })
-                                            }
-                                        </div>;
-                                    })
-                                }
-                            </div>
-                        }
-                    </Panel>
-                    <Panel header="发表评论" key="2" showArrow={false}
-                           extra={<Button type="primary" onClick={this.sentComment} htmlType="button">发送评论</Button>}>
-                        <div style={{
-                            backgroundColor: "#e2e2e261"
-                        }}>
-                            <Editor onChange={html => this.setState({content: html})}/>
+                                                />;
+                                            })
+                                        }
+                                    </div>;
+                                })
+                            }
                         </div>
-                    </Panel>
-                </Collapse>
+                    }
+                </Card>
                 <Modal
                     title="回复"
                     visible={this.state.visible}
@@ -134,7 +133,8 @@ export default class CommentBase extends React.Component {
                     onCancel={() => this.setState({visible: false, quoteId: 0})}
                     afterClose={() => this.setState({visible: false, quoteId: 0})}
                 >
-                    <Editor onChange={html => this.setState({content: html})}/>
+                    <Editor onChange={html => this.setState({content: html})}
+                            controls={['bold', 'italic', 'underline', 'strike-through', 'emoji', 'text-color']}/>
                 </Modal>
             </div>
         )
