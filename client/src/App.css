@@ -145,6 +145,11 @@ body {
     font-size: 14px;
 }
 
+.footer .license a {
+    color: rgba(255, 255, 255, 0.7);
+    padding-left: 5px;
+}
+
 .friend-link {
     color: rgba(255, 255, 255, 0.7);
     display: flex;

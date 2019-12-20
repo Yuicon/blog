@@ -16,7 +16,7 @@ class Footer extends Component {
                 </div>
                 <div className="license">
                     ©2019 Yuicon
-                    浙ICP备18037558号
+                    <a href="http://www.beian.miit.gov.cn">浙ICP备18037558号</a>
                 </div>
             </div>
         );
