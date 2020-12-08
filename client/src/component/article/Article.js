@@ -4,7 +4,6 @@ import {articleApi} from "../../api/articleApi";
 import BraftArticle from "./BraftArticle";
 import V2exArticle from "./V2exArticle";
 import MarkDownArticle from "./MarkDownArticle";
-import CommentBase from "./CommentBase";
 
 /**
  * @author Yuicon
@@ -64,9 +63,9 @@ export default class Article extends Component {
                         <i className="ion-android-arrow-dropup"/>
                     </button>
                 </div>
-                <div style={{width: "60%"}}>
-                    {this.state.loadingComment && <CommentBase articleId={this.state.article.id}/>}
-                </div>
+                {/*<div style={{width: "60%"}}>*/}
+                {/*{this.state.loadingComment && <CommentBase articleId={this.state.article.id}/>}*/}
+                {/*</div>*/}
             </div>
         );
     }

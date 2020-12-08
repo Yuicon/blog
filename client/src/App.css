@@ -4,10 +4,14 @@ body {
 
 .App {
     text-align: center;
+    font-size: 17px;
+    font-family: "Microsoft YaHei", serif;
+    line-height: 1.9em;
 }
 
 .App .content {
     min-height: 74vh;
+    background-color: #f5f5f5;
 }
 
 .App-logo {
@@ -216,4 +220,27 @@ i, cite, em, var, address, dfn {
     flex-direction: column;
     align-items: center;
     padding: 30px;
+}
+
+pre {
+    text-align: start;
+    color: #333;
+    background: #dedede;
+    display: flex;
+    justify-content: flex-start;
+}
+
+pre code {
+    padding-left: 64px;
+    background: #dedede;
+}
+
+code {
+    padding-left: 10px;
+    padding-right: 10px;
+    background-color: blanchedalmond;
+}
+
+ul li {
+    text-align: start;
 }
